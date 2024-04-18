@@ -1,7 +1,6 @@
 import pickle
-import numpy as np
 
-from funzioniUtili import stampaDataset, creaScenario
+from funzioniUtili import stampaDataset, creaScenario, plotTraiettorie
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -15,7 +14,7 @@ def main():
         
     datasetCreato = creaScenario(10, inputDataset)
     stampaDataset(datasetCreato)
-    
+    plotTraiettorie(datasetCreato)
     
 #---------------------------------------------------------------------------------------------------------
 

@@ -1,9 +1,10 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
-def stampaDataset(inputDataset: list):
-    for i, traiettoria in enumerate(inputDataset):
+def stampaDataset(inputDatasetToPrint: list):
+    for i, traiettoria in enumerate(inputDatasetToPrint):
         print("\n" f"Traiettoria {i + 1}: \n")
         
         stato_vero = traiettoria[0]
@@ -52,3 +53,38 @@ def creaScenario(numTraiettorie: int, inputDataset: list):
     
     # Restituisci la lista delle traiettorie selezionate
     return traiettorie_selezionate
+
+#--------------------------------------------------------------------------------------------------------
+
+def plotTraiettorie(dataset):
+    plt.figure(figsize=(10, 8))
+    for i, (_, misure) in enumerate(dataset):
+        #for i, (_, misure) in enumerate(dataset):: Questo ciclo for itera su ogni traiettoria nel dataset.
+        # enumerate(dataset) restituisce una tupla di valori (indice, traiettoria) in cui indice è l'indice
+        # corrente della traiettoria e traiettoria è la traiettoria stessa. Poiché non usiamo lo stato
+        # vero, poniamo _ come il primo elemento della tupla che non ci serve. misure è la seconda parte
+        # della tupla, che contiene i dati di misura della traiettoria.
+        x = misure[:, 0]  # Coordinate x delle misure
+        #x = misure[:, 0]: Estrae le coordinate x delle misure della traiettoria corrente. misure[:, 0]
+        # significa "prendi tutte le righe della matrice misure e seleziona solo la colonna 0",
+        # che rappresenta le coordinate x.
+        y = misure[:, 1]  # Coordinate y delle misure
+        
+        # Colore della traiettoria
+        colore = plt.get_cmap('tab10')(i)  # Selezione del colore in base all'indice
+        
+        # Plot della traiettoria 
+        plt.plot(x, y, color=colore, label=f'Traiettoria {i+1}', zorder=1)
+        
+        # Punto all'inizio e alla fine della traiettoria
+        plt.plot(x[0], y[0], marker='o', markersize=8, color=colore, zorder=3)
+        plt.plot(x[-1], y[-1], marker='o', markersize=8, color=colore, zorder=3)
+    
+    
+    plt.xlabel('Coordinate x')
+    plt.ylabel('Coordinate y')
+    plt.title('Traiettorie delle barche')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+    
