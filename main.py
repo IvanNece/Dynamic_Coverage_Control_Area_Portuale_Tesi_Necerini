@@ -13,10 +13,11 @@ def main():
     except Exception as e:
         print("Errore durante il caricamento del dataset:", e)
         
-    #creo uno scenario con 10 traiettorie casuali
-    createdDataset = buildTheSet(10, inputDataset)
-    printDataset(createdDataset)
-    plotTrajectories(createdDataset, plotDir = "selectedTrajectories.png")
+    #creo uno scenario con numTargets traiettorie casuali
+    numTargets = 10
+    createdDatasetOfTargets = buildTheSet(numTargets, inputDataset)
+    printDataset(createdDatasetOfTargets)
+    plotTrajectories(createdDatasetOfTargets, plotDir = "selectedTrajectories.png")
     
 #---------------------------------------------------------------------------------------------------------
 

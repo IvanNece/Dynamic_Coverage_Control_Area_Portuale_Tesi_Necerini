@@ -84,7 +84,7 @@ def plotTrajectories(dataset, plotDir = None):
     
     plt.xlabel('Coordinate x')
     plt.ylabel('Coordinate y')
-    plt.title('Traiettorie delle barche')
+    plt.title('Traiettorie delle barche (Targets)')
     plt.legend()
     plt.grid(True)
     
