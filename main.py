@@ -1,6 +1,6 @@
 import pickle
 
-from funzioniUtili import stampaDataset, creaScenario, plotTraiettorie
+from createTheSet import printDataset, buildTheSet, plotTrajectories
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -14,9 +14,9 @@ def main():
         print("Errore durante il caricamento del dataset:", e)
         
     #creo uno scenario con 10 traiettorie casuali
-    datasetCreato = creaScenario(10, inputDataset)
-    stampaDataset(datasetCreato)
-    plotTraiettorie(datasetCreato, destStampa = "traiettorieSelezionate.png")
+    createdDataset = buildTheSet(10, inputDataset)
+    printDataset(createdDataset)
+    plotTrajectories(createdDataset, plotDir = "selectedTrajectories.png")
     
 #---------------------------------------------------------------------------------------------------------
 
