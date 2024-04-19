@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -56,7 +57,7 @@ def creaScenario(numTraiettorie: int, inputDataset: list):
 
 #--------------------------------------------------------------------------------------------------------
 
-def plotTraiettorie(dataset):
+def plotTraiettorie(dataset, destStampa = None):
     plt.figure(figsize=(10, 8))
     for i, (_, misure) in enumerate(dataset):
         #for i, (_, misure) in enumerate(dataset):: Questo ciclo for itera su ogni traiettoria nel dataset.
@@ -86,5 +87,14 @@ def plotTraiettorie(dataset):
     plt.title('Traiettorie delle barche')
     plt.legend()
     plt.grid(True)
-    plt.show()
+    
+    if destStampa:
+        # Ottieni il percorso completo della cartella "Images"
+        imageDir = os.path.join(os.getcwd(), "Images")
+        # Crea la cartella se non esiste
+        os.makedirs(imageDir, exist_ok=True)
+        # Salva il grafico nella cartella "Images" con il nome specificato
+        plt.savefig(os.path.join(imageDir, destStampa))
+    else:
+        plt.show()
     
