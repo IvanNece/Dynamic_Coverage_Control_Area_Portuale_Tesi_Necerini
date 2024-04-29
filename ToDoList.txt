@@ -1,57 +1,23 @@
 STEP 1) SCENARIO INIZIALE TARGETS:
 
-DOMANDA 1.1) RISOLTA
-  come mi ha detto lei, il dataset è composto da: 
-  np.shape(dataset[i][0])=(351, 4)
-  np.shape(dataset[i][1])=(351, 2)
-  dove i è l'indice della traiettoria e 0,1 indica stato vero (0) con 4 componenti (posizione x,
-  posizione y, velocità x, velocità y) e misure (1) con 2 componenti della posizione.
+     -Ho creato uno scenario iniziale di 10 traiettorie di targets, non variando però la durata di esse
+     che è 351 secondi, di conseguenza lo scenario rimane di 800x800 unità
 
-  come vede io ho plottato tutte e 10 le traiettorie selezionate dal dataset fornito in modo casuale
-  nello stesso grafico, andando a graficare le x e le y delle MISURE (1) e non dello stato vero (0).
-  vorrei capire se ho fatto bene a plottare le misure e non lo stato vero.
-  Inoltre non ho ben capito
-  il significato che ogni traiettoria (tupla) contiene due array, uno per lo stato vero e uno per le misure.
-  Cosa rappresenta lo stato vero? cosa rappresentano le misure? perchè un array ha 4 componenti e l'altro 2?
-  Come mai ho le posizioi x e y in entrambi gli array? perchè in uno ho le velocità e nell'altro no? 
-  Cosa rappresentano ???
+STEP 2) SCENARIO INIZIALE TARGETS RIDOTTO:
 
-#--------------------------------------------------------------------------------------------------------
+      -Devo creare uno scenario iniziale di 10 traiettorie di targets, riducendo la durata di esse
+      a 100 secondi, di conseguenza devo capire di quanto si riduce lo scenario
 
-STEP 2) SCENARIO INZIALE AGENTI:
+      -Devo plottare le 10 traiettorie all'istante t=0, per capire tutte le coordinate x e y in che
+      range sono comprese (0-200???)
 
-DOMANDA 2.1)
-  ho creato dunque la mia lista di target createdDatasetOfTargets che è una sottolista del dataset
-    fornito in input. Adesso però devo avere informazioni sugli agenti (droni), devo creare lo SCENARIO 
-    INIZIALE DEGLI AGENTI:
-    - quanti droni prendo per iniziare, ad esempio 4 (ho preso per esempio 10 targets) che proporzione
-      uso in generale, cioe ho N targets e prendo M droni, con M<N, come scelgo M?
-    - in base a cosa stabilisco la posizione iniziale dei droni (ok, si era detto di avere un coverage
-      iniziale garantito e poi usare l'algoritmo successivamente), ma come trovo posizione iniziale 
-      x e y dei droni?
-    - come scelgo la soglia minima per cui Ej sia considerato buono? e di conseguenza come scelgo la
-      SOGLIA DI COPERTURA (E*) per la funzione sigmoide? IG come capisco se la copertura del singolo
-      target è SUFFICIENTE?
-    - c'è una soglia anche su E? 
+STEP 3) SCENARIO INIZIALE DRONI (AGENTI):
 
-DOMANDA 2.2)    
-  mi servono alcuni dati per calcolare gli indici di copertura di ogni target j, tra cui:
-      - posizione droni (punto 2), in quanto devo calcolare la distanza tra target e drone
-      - raggio di visione dei droni (nell'articolo c'è una mappa di 10x10 unità e il raggio lo prende di 0.8)
-      - Mp peak sensing quality, nell'articolo mette 1, se ne era parlato ed è ragionevole in quanto così
-        si avrà una corrisondenza tra il valore degli indici di copertura e il numero di agenti. esempio
-        considero il coverage buono se i droni (es tot4) che coprono un target (totali 10) sono almeno 2
-        (esempio)
-      -Ci serve per il nostro progetto R? raggio di capacità di comunicazione reciproca tra droni
-        per abilitare il coordinamento tra di loro
+      -Devo creare uno scenario iniziale di 4 droni (agenti), con posizione iniziale tale per cui ho
+      un coverage iniziale completo della mia area. Quindi all'istante t=0 devo calcolare i miei Ej
+      per ogni target e far si che siano sopra la soglia di copertura E*. 
 
+      -Plotto lo scenario iniziale completo a t=0 sia di droni che di target, mettere simboli diversi
+      per droni e target ovviamente
 
-
-
-#--------------------------------------------------------------------------------------------------------
-
-STEP 3) algoritmo
-
-DOMANDA 3.1)
-  -Dove calcolo Ej, vedi segna posto su file goodnotes
-  -Come fermo l'algoritmo??? da quello scritto non si capisce come si ferma
+STEP 4) ALGORITMO
