@@ -3,6 +3,7 @@ import sys
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
+from calculateCoverageIndices import calculateInitialCoverageIndices
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -61,6 +62,8 @@ def main():
     # Plot delle posizioni iniziali degli agenti
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
+    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
+    initialCoverageIndeces = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions)
     
 #---------------------------------------------------------------------------------------------------------
 
