@@ -1,23 +1,33 @@
 import pickle
+import sys
 
 from createTheSet import printDataset, buildTheSet, plotTrajectories
 
 #---------------------------------------------------------------------------------------------------------
 
 def main():
-    #apro il file pickle per ottenere le 50 traiettorie
-    try:
-        with open("dataset.pkl", "rb") as f:
-            inputDataset = pickle.load(f)
-            print('Dataset caricato correttamente')
-    except Exception as e:
-        print("Errore durante il caricamento del dataset:", e)
+    # Apri il file per scrivere l'output
+    with open('outputSetTargets.txt', 'w') as f:
+        # Salva l'output standard in una variabile per ripristinarlo successivamente
+        original_stdout = sys.stdout
         
-    #creo uno scenario con numTargets traiettorie casuali
-    numTargets = 10
-    createdDatasetOfTargets = buildTheSet(numTargets, inputDataset)
-    printDataset(createdDatasetOfTargets)
-    plotTrajectories(createdDatasetOfTargets, plotDir = "selectedTrajectories.png")
+        # Redirigi l'output standard verso il file
+        sys.stdout = f
+        
+        try:
+            with open("dataset.pkl", "rb") as f:
+                inputDataset = pickle.load(f)
+                print('Dataset caricato correttamente')
+        except Exception as e:
+            print("Errore durante il caricamento del dataset:", e)
+            
+        numTargets = 10
+        createdDatasetOfTargets = buildTheSet(numTargets, inputDataset)
+        printDataset(createdDatasetOfTargets)
+        plotTrajectories(createdDatasetOfTargets, plotDir="selectedTrajectories.png")
+        
+        # Ripristina l'output standard
+        sys.stdout = original_stdout
     
 #---------------------------------------------------------------------------------------------------------
 

@@ -4,25 +4,6 @@ import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
-def printDataset(inputDatasetToPrint: list):
-    for i, trajectory in enumerate(inputDatasetToPrint):
-        print("\n" f"Traiettoria {i + 1}: \n")
-        
-        realState = trajectory[0]
-        measurement = trajectory[1]
-        print(f"Stato vero della traiettoria: {realState}")
-        print(f"Misure della traiettoria: {measurement}")
-        print()
-
-
-            
-    # Quando vedi "..." nella lista degli stati veri, significa che ci sono altri stati intermedi tra
-    # le posizioni mostrate. Questo è comune quando si tratta di dati di traiettorie, dove le posizioni
-    # possono essere campionate a intervalli regolari nel tempo e i punti intermedi non vengono
-    # esplicitamente registrati per ridurre la dimensione del dataset.
-
-#--------------------------------------------------------------------------------------------------------
-
 def buildTheSet(numTrajectories: int, inputDataset: list):
     #creo l'array di indici delle numTraiettorie traiettorie selezioante casualmente, da 0 a 49
     selectedTrajectoriesIndex = np.random.choice(len(inputDataset), numTrajectories, replace=False)
@@ -54,6 +35,25 @@ def buildTheSet(numTrajectories: int, inputDataset: list):
     
     # Restituisci la lista delle traiettorie selezionate
     return selectedTrajectories
+
+#--------------------------------------------------------------------------------------------------------
+
+def printDataset(inputDatasetToPrint: list):
+    for i, trajectory in enumerate(inputDatasetToPrint):
+        print("\n" f"Traiettoria {i + 1}: \n")
+        
+        realState = trajectory[0]
+        measurement = trajectory[1]
+        print(f"Stato vero della traiettoria: {realState}")
+        print(f"Misure della traiettoria: {measurement}")
+        print()
+
+
+            
+    # Quando vedi "..." nella lista degli stati veri, significa che ci sono altri stati intermedi tra
+    # le posizioni mostrate. Questo è comune quando si tratta di dati di traiettorie, dove le posizioni
+    # possono essere campionate a intervalli regolari nel tempo e i punti intermedi non vengono
+    # esplicitamente registrati per ridurre la dimensione del dataset.
 
 #--------------------------------------------------------------------------------------------------------
 
