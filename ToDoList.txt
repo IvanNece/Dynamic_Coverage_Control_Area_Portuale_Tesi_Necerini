@@ -1,10 +1,12 @@
 STEP 1) SCENARIO INIZIALE TARGETS:
 
-     -Ho creato uno scenario iniziale di 10 traiettorie di targets, non variando però la durata di esse
-     che è 351 secondi, di conseguenza lo scenario rimane di 800x800 unità
+      FATTO
+      -Ho creato uno scenario iniziale di 10 traiettorie di targets, non variando però la durata di esse
+      che è 351 secondi, di conseguenza lo scenario rimane di 800x800 unità
 
 STEP 2) SCENARIO INIZIALE TARGETS RIDOTTO:
 
+      FATTO
       -Devo creare uno scenario iniziale di 10 traiettorie di targets, riducendo la durata di esse
       a 100 secondi, di conseguenza devo capire di quanto si riduce lo scenario
 

@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 #     # Restituisci la lista delle traiettorie selezionate
 #     return selectedTrajectories
 
-def buildTheSet(numTrajectories: int, inputDataset: list, duration: int = 100):
+def buildTheSet(numTrajectories: int, inputDataset: list, duration: int):
     selectedTrajectories = []
     
     try:
@@ -127,3 +127,44 @@ def plotTrajectories(dataset, plotDir = None):
     else:
         plt.show()
     
+#--------------------------------------------------------------------------------------------------------
+
+def plotStartingPointOfTrajectories(dataset, plotDir = None):
+    plt.figure(figsize=(10, 8))
+    
+    # Lista per memorizzare i colori delle traiettorie
+    colors = plt.get_cmap('tab10').colors
+    
+    for i, (_, measurement) in enumerate(dataset):
+        # Estrai le coordinate x e y del punto di partenza
+        start_x = measurement[0, 0]
+        start_y = measurement[0, 1]
+        
+        # Seleziona il colore della traiettoria
+        color = colors[i % len(colors)]  # Utilizza i colori ciclicamente
+        
+        # Plot del punto di partenza
+        plt.scatter(start_x, start_y, color=color, label=f'Traiettoria {i+1}', zorder=3)
+    
+    
+    plt.xlabel('Coordinate x')
+    plt.ylabel('Coordinate y')
+    plt.title('Traiettorie delle barche (Targets)')
+    plt.legend()
+    plt.grid(True)
+    
+    if plotDir:
+        # Ottieni il percorso completo della cartella "Images"
+        imageDir = os.path.join(os.getcwd(), "Images")
+        # Crea la cartella se non esiste
+        os.makedirs(imageDir, exist_ok=True)
+        # Salva il grafico nella cartella "Images" con il nome specificato
+        plt.savefig(os.path.join(imageDir, plotDir))
+    else:
+        plt.show()
+        
+    print("""Come vedo, le coordinate di partenza x e y di tutte le traiettorie, sono comprese
+          tra 0 e 200, dentro il file startingPoints.png lo si vede. Tutto ciò è stato fatto
+          come riprova""")
+    
+

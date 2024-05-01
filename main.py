@@ -1,11 +1,14 @@
 import pickle
 import sys
 
-from createTheSet import printDataset, buildTheSet, plotTrajectories
+from createTheSet import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 
 #---------------------------------------------------------------------------------------------------------
 
 def main():
+    
+    # 1, 2.1) CARICO IL DATASET E CREO UNO SCENARIO DI TRAIETTORIE DI TARGET SELZIONATE
+    
     # Apri il file per scrivere l'output, nel file txt ci metto le traiettorie selezionate
     with open('outputSetTargets.txt', 'w') as f:
         # Salva l'output standard in una variabile per ripristinarlo successivamente
@@ -21,13 +24,28 @@ def main():
         except Exception as e:
             print("Errore durante il caricamento del dataset:", e)
             
-        numTargets = 10
-        createdDatasetOfTargets = buildTheSet(numTargets, inputDataset)
+        numTargets = 10 # numero di traittorie selezionate
+        duration = 100  # secondi di durata delle traiettorie
+        createdDatasetOfTargets = buildTheSet(numTargets, inputDataset, duration)
         printDataset(createdDatasetOfTargets)
         plotTrajectories(createdDatasetOfTargets, plotDir="selectedTrajectories.png")
         
         # Ripristina l'output standard
         sys.stdout = original_stdout
+    
+    print(f"E' stato creato uno scenario con {numTargets} traiettorie selezionate della durata di "
+      f"{duration} secondi. I dettagli dello scenario sono stati salvati "
+      f"in 'outputSetTargets.txt'.\n")
+    
+    print("Il grafico che mostra le traiettorie selezionate è presente in 'selectedTrajectories.png'.\n\n")
+    
+    
+    # 2.2) CREO UN GRAFICO DELLE TRAIETTORIE SELEZIONATE, CON SOLO IL LORO PUNTO DI PARTENZA
+    
+    plotStartingPointOfTrajectories(createdDatasetOfTargets, plotDir="startingPoints.png")
+     
+    
+
         
     
 #---------------------------------------------------------------------------------------------------------
