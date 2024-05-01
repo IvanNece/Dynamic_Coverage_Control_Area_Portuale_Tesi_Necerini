@@ -4,36 +4,65 @@ import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
-def buildTheSet(numTrajectories: int, inputDataset: list):
-    #creo l'array di indici delle numTraiettorie traiettorie selezioante casualmente, da 0 a 49
-    selectedTrajectoriesIndex = np.random.choice(len(inputDataset), numTrajectories, replace=False)
-    print("Indici traiettorie selezionate:", selectedTrajectoriesIndex)
+# def buildTheSet(numTrajectories: int, inputDataset: list, duration: int = 100):
+#     #creo l'array di indici delle numTraiettorie traiettorie selezioante casualmente, da 0 a 49
+#     selectedTrajectoriesIndex = np.random.choice(len(inputDataset), numTrajectories, replace=False)
+#     print("Indici traiettorie selezionate:", selectedTrajectoriesIndex)
     
-    #np.random.choice(len(inputDataset), numTraiettorie, replace=False): Questa parte del codice utilizza
-    #la funzione np.random.choice di NumPy per selezionare casualmente numTraiettorie indici compresi
-    #tra 0 e len(inputDataset) - 1. Questi indici rappresentano le posizioni delle traiettorie
-    #all'interno dell'inputDataset. L'argomento replace=False garantisce che gli indici selezionati
-    #siano unici, ovvero che non ci siano traiettorie duplicate nel risultato.
+#     #np.random.choice(len(inputDataset), numTraiettorie, replace=False): Questa parte del codice utilizza
+#     #la funzione np.random.choice di NumPy per selezionare casualmente numTraiettorie indici compresi
+#     #tra 0 e len(inputDataset) - 1. Questi indici rappresentano le posizioni delle traiettorie
+#     #all'interno dell'inputDataset. L'argomento replace=False garantisce che gli indici selezionati
+#     #siano unici, ovvero che non ci siano traiettorie duplicate nel risultato.
 
-    #stampo le traiettorie selezionate in ordine rispetto a come sono stati messi gli indici nell'array
-    print("Traiettorie selezionate:")
-    try:
-        # Lista per memorizzare le traiettorie selezionate
-        selectedTrajectories = []
+#     #stampo le traiettorie selezionate in ordine rispetto a come sono stati messi gli indici nell'array
+#     print("Traiettorie selezionate:")
+#     try:
+#         # Lista per memorizzare le traiettorie selezionate
+#         selectedTrajectories = []
         
-        for i, iTraiettoria in enumerate(selectedTrajectoriesIndex):
-            print(f"Traiettoria {i + 1}: {iTraiettoria}-esima")
-            traiettoria = inputDataset[iTraiettoria]
+#         for i, iTraiettoria in enumerate(selectedTrajectoriesIndex):
+#             print(f"Traiettoria {i + 1}: {iTraiettoria}-esima")
+#             traiettoria = inputDataset[iTraiettoria]
             
-            # Aggiungi la traiettoria alla lista delle traiettorie selezionate
-            selectedTrajectories.append(traiettoria)
+#             # Aggiungi la traiettoria alla lista delle traiettorie selezionate
+#             selectedTrajectories.append(traiettoria)
+#     except Exception as e:
+#         print("Errore durante la creazione dello scenario:", e)
+
+#     #per verificare che ne stampo effettivamente il numero passato alla funzione
+#     print("Numero di traiettorie selezionate:", len(selectedTrajectories))
+    
+#     # Restituisci la lista delle traiettorie selezionate
+#     return selectedTrajectories
+
+def buildTheSet(numTrajectories: int, inputDataset: list, duration: int = 100):
+    selectedTrajectories = []
+    
+    try:
+        print(f"Traiettorie selezionate, troncate ai primi {duration} secondi: \n")
+        for _ in range(numTrajectories):
+            # Seleziona casualmente un indice di traiettoria dall'inputDataset
+            random_trajectory_index = np.random.choice(len(inputDataset))
+            # Ottieni la traiettoria corrispondente all'indice casuale
+            random_trajectory = inputDataset[random_trajectory_index]
+            
+            # Tronca la traiettoria ai primi "duration" secondi
+            truncated_real_state = random_trajectory[0][:duration]
+            truncated_measurement = random_trajectory[1][:duration]
+            
+            # Aggiungi la traiettoria troncata alla lista delle traiettorie selezionate
+            selectedTrajectories.append((truncated_real_state, truncated_measurement))
+            
+            # Stampa l'indice della traiettoria selezionata
+            print(f"Traiettoria {len(selectedTrajectories)}: {random_trajectory_index}-esima")
+        
+         # Stampa il numero totale di traiettorie selezionate
+        print("Numero di traiettorie selezionate:", len(selectedTrajectories))
+        
     except Exception as e:
         print("Errore durante la creazione dello scenario:", e)
-
-    #per verificare che ne stampo effettivamente il numero passato alla funzione
-    print("Numero di traiettorie selezionate:", len(selectedTrajectories))
     
-    # Restituisci la lista delle traiettorie selezionate
     return selectedTrajectories
 
 #--------------------------------------------------------------------------------------------------------
@@ -44,8 +73,8 @@ def printDataset(inputDatasetToPrint: list):
         
         realState = trajectory[0]
         measurement = trajectory[1]
-        print(f"Stato vero della traiettoria: {realState}")
-        print(f"Misure della traiettoria: {measurement}")
+        print(f"Stato vero della traiettoria:\n {realState}")
+        print(f"\nMisure della traiettoria:\n {measurement}")
         print()
 
 

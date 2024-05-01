@@ -6,7 +6,7 @@ from createTheSet import printDataset, buildTheSet, plotTrajectories
 #---------------------------------------------------------------------------------------------------------
 
 def main():
-    # Apri il file per scrivere l'output
+    # Apri il file per scrivere l'output, nel file txt ci metto le traiettorie selezionate
     with open('outputSetTargets.txt', 'w') as f:
         # Salva l'output standard in una variabile per ripristinarlo successivamente
         original_stdout = sys.stdout
@@ -28,6 +28,7 @@ def main():
         
         # Ripristina l'output standard
         sys.stdout = original_stdout
+        
     
 #---------------------------------------------------------------------------------------------------------
 
