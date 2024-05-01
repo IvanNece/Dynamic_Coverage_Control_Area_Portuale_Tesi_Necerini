@@ -10,6 +10,7 @@ STEP 2) SCENARIO INIZIALE TARGETS RIDOTTO:
       -Devo creare uno scenario iniziale di 10 traiettorie di targets, riducendo la durata di esse
       a 100 secondi, di conseguenza devo capire di quanto si riduce lo scenario
 
+      FATTO
       -Devo plottare le 10 traiettorie all'istante t=0, per capire tutte le coordinate x e y in che
       range sono comprese (0-200???)
 

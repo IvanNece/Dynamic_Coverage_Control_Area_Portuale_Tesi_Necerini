@@ -106,15 +106,23 @@ def plotTrajectories(dataset, plotDir = None):
         # Plot della traiettoria 
         plt.plot(x, y, color=color, label=f'Traiettoria {i+1}', zorder=1)
         
-        # Punto all'inizio e alla fine della traiettoria
-        plt.plot(x[0], y[0], marker='o', markersize=8, color=color, zorder=3)
-        plt.plot(x[-1], y[-1], marker='o', markersize=8, color=color, zorder=3)
+        # Punto all'inizio e alla fine della traiettoria con simboli diversi
+        if(i==0):
+            plt.plot(x[0], y[0], marker='o', markersize=8, color=color, zorder=3, label='Inizio')
+        else:
+            plt.plot(x[0], y[0], marker='o', markersize=8, color=color, zorder=3)
+        
+        if(i==0):
+            plt.plot(x[-1], y[-1], marker='s', markersize=8, color=color, zorder=3, label='Fine')
+        else:
+            plt.plot(x[-1], y[-1], marker='s', markersize=8, color=color, zorder=3)
+    
     
     
     plt.xlabel('Coordinate x')
     plt.ylabel('Coordinate y')
     plt.title('Traiettorie delle barche (Targets)')
-    plt.legend()
+    plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.grid(True)
     
     if plotDir:
@@ -123,7 +131,7 @@ def plotTrajectories(dataset, plotDir = None):
         # Crea la cartella se non esiste
         os.makedirs(imageDir, exist_ok=True)
         # Salva il grafico nella cartella "Images" con il nome specificato
-        plt.savefig(os.path.join(imageDir, plotDir))
+        plt.savefig(os.path.join(imageDir, plotDir), bbox_inches='tight')
     else:
         plt.show()
     
