@@ -157,8 +157,8 @@ def plotStartingPointOfTrajectories(dataset, plotDir = None):
     
     plt.xlabel('Coordinate x')
     plt.ylabel('Coordinate y')
-    plt.title('Traiettorie delle barche (Targets)')
-    plt.legend()
+    plt.title('Coordinate iniziali delle barche (Targets)')
+    plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.grid(True)
     
     if plotDir:
@@ -167,7 +167,7 @@ def plotStartingPointOfTrajectories(dataset, plotDir = None):
         # Crea la cartella se non esiste
         os.makedirs(imageDir, exist_ok=True)
         # Salva il grafico nella cartella "Images" con il nome specificato
-        plt.savefig(os.path.join(imageDir, plotDir))
+        plt.savefig(os.path.join(imageDir, plotDir), bbox_inches='tight')
     else:
         plt.show()
         

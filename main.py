@@ -2,7 +2,7 @@ import pickle
 import sys
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
-from createTheSetOfAgents import generateInitialAgentPositions
+from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -53,12 +53,13 @@ def main():
     # Genera le posizioni iniziali degli agenti
     initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
     
-    #TODO SISTEMARE LA STAMPA E FAI UN EVENTUALE GRAFICO CONGIUNTO
-    
     # Stampa le posizioni iniziali degli agenti
     print("\n\nPosizioni iniziali degli agenti:")
     for i, (x, y) in enumerate(initialAgentPositions):
         print(f"Agente {i+1}: x = {x}, y = {y}")
+        
+    # Plot delle posizioni iniziali degli agenti
+    plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
     
 #---------------------------------------------------------------------------------------------------------
