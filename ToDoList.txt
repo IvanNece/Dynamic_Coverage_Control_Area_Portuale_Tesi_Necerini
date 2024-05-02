@@ -16,11 +16,15 @@ STEP 2) SCENARIO INIZIALE TARGETS RIDOTTO:
 
 STEP 3) CREO UNO SCENARIO INIZIALE DI AGENTI E CALCOLO GLI INDICI DI COPERTURA A t=0 PER OGNI TARGET
 
+      FATTO
       -Devo creare uno scenario iniziale di 4 droni (agenti), con posizione iniziale tale per cui ho
       un coverage iniziale completo della mia area. Quindi all'istante t=0 devo calcolare i miei Ej
       per ogni target e far si che siano sopra la soglia di copertura E*. 
 
+      FATTO
       -Plotto lo scenario iniziale completo a t=0 sia di droni che di target, mettere simboli diversi
       per droni e target ovviamente
+
+      -Calcolo anche l'E complessivo all'istante 0, implica devo fare la funzione sigmoidale
 
 STEP 4) ALGORITMO

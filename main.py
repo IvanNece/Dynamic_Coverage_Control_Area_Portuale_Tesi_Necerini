@@ -4,6 +4,7 @@ import sys
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices
+from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ def main():
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
     # raggio di visione degli agenti (droni)
-    r = 500
+    r = 150
     # peak sensing quality
     mp = 1
     
@@ -76,6 +77,9 @@ def main():
     print("Initial coverage indices:")
     for i, coverage_index in enumerate(initialCoverageIndices):
         print(f"E_{i}: {coverage_index}")
+        
+    # ora plotto il grafico delle traiettorie, insieme agli startin point degli agenti
+    plotTrajectoriesWithAgentStartPoints(createdDatasetOfTargets, initialAgentPositions, plotDir="trajectoriesWithAgentStartPoints.png")
         
     
 #---------------------------------------------------------------------------------------------------------
