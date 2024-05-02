@@ -14,7 +14,7 @@ STEP 2) SCENARIO INIZIALE TARGETS RIDOTTO:
       -Devo plottare le 10 traiettorie all'istante t=0, per capire tutte le coordinate x e y in che
       range sono comprese (0-200???)
 
-STEP 3) SCENARIO INIZIALE DRONI (AGENTI):
+STEP 3) CREO UNO SCENARIO INIZIALE DI AGENTI E CALCOLO GLI INDICI DI COPERTURA A t=0 PER OGNI TARGET
 
       -Devo creare uno scenario iniziale di 4 droni (agenti), con posizione iniziale tale per cui ho
       un coverage iniziale completo della mia area. Quindi all'istante t=0 devo calcolare i miei Ej

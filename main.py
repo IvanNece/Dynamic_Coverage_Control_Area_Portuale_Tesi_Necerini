@@ -46,7 +46,8 @@ def main():
     
     plotStartingPointOfTrajectories(createdDatasetOfTargets, plotDir="startingPoints.png")
      
-    # 3) CREO UNO SCENARIO INIZIALE DI AGENTI (DRONI)
+    # 3) CREO UNO SCENARIO INIZIALE DI AGENTI (DRONI) E CALCOLO GLI INDICI DI COPERTURA A t=0 
+    # PER OGNI TARGET
     
     numAgents = 4
     initialAreaSize = 200
@@ -63,7 +64,7 @@ def main():
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
     # raggio di visione degli agenti (droni)
-    r = 64
+    r = 500
     # peak sensing quality
     mp = 1
     
