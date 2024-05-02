@@ -16,6 +16,8 @@
 # funz di prova, calcolo di E_00_0
 def calculateE_00_0(targets: list, initialAgents: list, r, mp):
     
+    print("\n\nCALCOLO DI E_00_0: indice di copertura del target 0 rispetto all'agente 0 all'istante t=0\n")
+    
     trajectory0 = targets[0]
     measurement0 = trajectory0[1]
     # se metto :,0 ottengo tutte le coordinate x di tutte le traiettorie
@@ -23,7 +25,7 @@ def calculateE_00_0(targets: list, initialAgents: list, r, mp):
     qy0 = measurement0[0, 1]
     
     # stampo le coordinate (x,y) (qx0(0) e qy0(0)) del target scelto per primo in modo casuale a t=0
-    print("\n\nCoordinate del target 0 al tempo t=0:\n")
+    print("Coordinate del target 0 al tempo t=0:\n")
     print(f"Qx0(0) = {qx0}")
     print(f"Qy0(0) = {qy0}")
     
@@ -35,7 +37,7 @@ def calculateE_00_0(targets: list, initialAgents: list, r, mp):
     
     # calcolo la distanza l00, tra il primo agente e il primo target
     l_00_0 = (initialAgents[0][0] - qx0)**2 + (initialAgents[0][1] - qy0)**2
-    print(f"\nDistanza l00 tra il target 0 e l'agente 0: {l_00_0}")
+    print(f"\nDistanza l_00_0 tra il target 0 e l'agente 0: {l_00_0}")
     
     # calcolo l'indice di copertura al E00 all'istante iniziale t=0
     
@@ -45,7 +47,7 @@ def calculateE_00_0(targets: list, initialAgents: list, r, mp):
         E_00_0 = 0
         
     # Stampa l'indice di copertura l00 del target 0 rispetto all'agente 0
-    print(f"\nIndice di copertura E00 del target 0 rispetto all'agente 0: {E_00_0}")
+    print(f"\nIndice di copertura E_00_0 del target 0 rispetto all'agente 0: {E_00_0}")
     
 #--------------------------------------------------------------------------------------------------------
 

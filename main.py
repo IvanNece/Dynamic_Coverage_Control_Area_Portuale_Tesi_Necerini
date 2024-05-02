@@ -65,7 +65,7 @@ def main():
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
     # raggio di visione degli agenti (droni)
-    r = 150
+    r = 200
     # peak sensing quality
     mp = 1
     
@@ -74,7 +74,7 @@ def main():
     
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
     initialCoverageIndices = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
-    print("Initial coverage indices:")
+    print("\n\nINDICI DI COPERTURA INIZIALI E_j AL TEMPO t=0:")
     for i, coverage_index in enumerate(initialCoverageIndices):
         print(f"E_{i}: {coverage_index}")
         
