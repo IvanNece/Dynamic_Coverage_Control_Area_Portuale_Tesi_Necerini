@@ -1,4 +1,3 @@
-import math
 
 #--------------------------------------------------------------------------------------------------------
 
@@ -56,10 +55,11 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
     initialCoverageIndices = []
     
     # Itera su tutti i target
-    for trajectory, _ in targets:
+    for trajectory in targets:
         measurement0 = trajectory[1]
-        qx0 = measurement0[0]  # Coordinate x del target al tempo t=0
-        qy0 = measurement0[1]  # Coordinate y del target al tempo t=0
+        # il primo 0 indica il tempo in secondi, il secondo numero indica la x (0) o la y (1)
+        qx0 = measurement0[0, 0]  # Coordinate x del target al tempo t=0
+        qy0 = measurement0[0, 1]  # Coordinate y del target al tempo t=0
         
         # Inizializza l'indice di copertura per il target corrente
         E_j_0 = 0

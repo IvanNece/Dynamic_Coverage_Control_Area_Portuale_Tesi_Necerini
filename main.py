@@ -3,7 +3,7 @@ import sys
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
-from calculateCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices
+from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices
 
 #---------------------------------------------------------------------------------------------------------
 
