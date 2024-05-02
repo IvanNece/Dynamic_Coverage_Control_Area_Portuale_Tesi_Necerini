@@ -3,7 +3,7 @@ import sys
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
-from calculateCoverageIndices import calculateInitialCoverageIndices
+from calculateCoverageIndices import calculateE00, calculateInitialCoverageIndices
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -66,8 +66,13 @@ def main():
     r = 64
     # peak sensing quality
     mp = 1
+    
+    # calcolo E00 come prova
+    E00 = calculateE00(createdDatasetOfTargets, initialAgentPositions, r, mp)
+    
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
-    initialCoverageIndeces = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
+    initialCoverageIndices = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
+    
     
 #---------------------------------------------------------------------------------------------------------
 

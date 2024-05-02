@@ -2,8 +2,8 @@ import math
 
 #--------------------------------------------------------------------------------------------------------
 
-# calcolo degli indici di copertura al tempo t=0 per ogni target j
-def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
+# funz di prova, calcolo di E00
+def calculateE00(targets: list, initialAgents: list, r, mp):
     
     trajectory0 = targets[0]
     measurement0 = trajectory0[1]
@@ -34,4 +34,39 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
         E00 = 0
         
     # Stampa l'indice di copertura l00 del target 0 rispetto all'agente 0
-    print(f"\nIndice di copertura l00 del target 0 rispetto all'agente 0: {E00}")
+    print(f"\nIndice di copertura E00 del target 0 rispetto all'agente 0: {E00}")
+    
+#--------------------------------------------------------------------------------------------------------
+
+# calcolo degli indici di copertura al tempo t=0 per ogni target j
+def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
+    # Inizializza una lista per memorizzare gli indici di copertura iniziali per ogni target
+    initialCoverageIndices = []
+    
+    # Itera su tutti i target
+    for trajectory, _ in targets:
+        measurement0 = trajectory[1]
+        qx0 = measurement0[0]  # Coordinate x del target al tempo t=0
+        qy0 = measurement0[1]  # Coordinate y del target al tempo t=0
+        
+        # Inizializza l'indice di copertura per il target corrente
+        E_j = 0
+        
+        # Calcola l'indice di copertura per il target corrente rispetto a tutti gli agenti
+        for agent_x, agent_y in initialAgents:
+            # Calcola la distanza tra l'agente corrente e il target corrente
+            l_ij = (agent_x - qx0)**2 + (agent_y - qy0)**2
+            
+            # Calcola l'indice di copertura per l'agente corrente e il target corrente
+            if l_ij <= (r**2):
+                E_ij = (mp / (r**4)) * (l_ij - (r**2))**2
+            else:
+                E_ij = 0
+            
+            # Aggiungi l'indice di copertura parziale all'indice di copertura totale per il target
+            E_j += E_ij
+        
+        # Aggiungi l'indice di copertura totale per il target corrente alla lista degli indici di copertura
+        initialCoverageIndices.append(E_j)
+    
+    return initialCoverageIndices
