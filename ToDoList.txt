@@ -30,6 +30,7 @@ STEP 4) ADESSO CALCOLO L'EFFETTIVO INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t
       FATTO
       -Calcolo l'E complessivo all'istante 0, implica devo fare la funzione sigmoidale
 
+      FATTO
       -Calcolo gradiente complessivo di E per ogni agente i al tempo t=0
 
 STEP 5) ALGORITMO

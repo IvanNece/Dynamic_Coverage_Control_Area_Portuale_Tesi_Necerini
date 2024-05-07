@@ -62,6 +62,8 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
         # [1] perchè prendo solo le misure, non lo stato vero
         measurement0 = trajectory[1]
         # il primo 0 indica il tempo in secondi, il secondo numero indica la x (0) o la y (1)
+        # LA PRIMA COLONNA, QUEI DUE 0, INDICA CHE PRENDO LA PRIMA MISURA, OVVERO QUELLA AL TEMPO 0
+        # INFATTI SE METTESSI : INVECE DI 0, LE PRENDEREI TUTTE
         qx0 = measurement0[0, 0]  # Coordinate x del target al tempo t=0
         qy0 = measurement0[0, 1]  # Coordinate y del target al tempo t=0
         

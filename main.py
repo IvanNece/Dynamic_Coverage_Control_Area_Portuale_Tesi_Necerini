@@ -99,6 +99,12 @@ def main():
     print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
     for i, gradient in enumerate(initalGradients):
         print(f"Agente {i+1}: {gradient}")
+        
+        
+    #------------------------------------------------------------------------------------------
+    # 5) ALGORITMO
+    
+    
     
     
 #---------------------------------------------------------------------------------------------------------
