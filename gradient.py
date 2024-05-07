@@ -1,30 +1,51 @@
 import numpy as np
 
-from initialCoverageIndices import calculateInitialTotalCoverageIndex
+from initialCoverageIndices import calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 
 #--------------------------------------------------------------------------------------------------------
 
+# AL TEMPO 0
+# Utilizzo formula classica differenze finite, wikipedia
 # Funzione per calcolare il gradiente dell'indice di copertura totale E(0) rispetto alle posizioni degli agenti
-def calculateGradientTotalCoverageIndex(initialCoverageIndices, initialAgentPositions, r, mp, delta, lowerboundIndex):
-    numAgents = len(initialAgentPositions)
-    gradient = np.zeros((numAgents, 2))  # Matrice per memorizzare le derivate parziali
-    
-    # Calcolo della funzione di copertura totale per le posizioni iniziali degli agenti
-    totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
+def gradientOfInitialCoverageIndex(targets, initialAgents, r, mp, lb=1, h=1e-5):
+    initialGradients = []
+    initialCoverageIndices = calculateInitialCoverageIndices(targets, initialAgents, r, mp)
+    # Utilizza un lowerbound arbitrario di 1
+    totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, 1)  
     
     # Iterazione su ciascun agente per calcolare il gradiente
-    for i, (agent_x, agent_y) in enumerate(initialAgentPositions):
-        # Perturbazione delle coordinate dell'agente
-        perturbedPositions = np.copy(initialAgentPositions)
-        perturbedPositions[i][0] += delta  # Perturbazione della coordinata x
-        perturbedPositions[i][1] += delta  # Perturbazione della coordinata y
+    for i in range(len(initialAgents)):
+        # Copia profonda delle posizioni iniziali degli agenti
+        newPositions = [list(pos) for pos in initialAgents]
         
-        # Calcolo del valore della funzione nei punti perturbati
-        perturbedCoverageIndex = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
+        # Calcolo del gradiente rispetto a x
+        newPositions[i][0] += h
+        newIndicesX = calculateInitialCoverageIndices(targets, newPositions, r, mp)
+        newTotalIndexX = calculateInitialTotalCoverageIndex(newIndicesX, 1)
+        gradientX = (newTotalIndexX - totalCoverageIndex_0) / h
         
-        # Calcolo delle derivate parziali utilizzando la formula delle differenze finite
-        gradient[i][0] = (perturbedCoverageIndex - totalCoverageIndex_0) / (2 * delta)  # Derivata parziale rispetto a x
-        gradient[i][1] = (perturbedCoverageIndex - totalCoverageIndex_0) / (2 * delta)  # Derivata parziale rispetto a y
+        # Reset della posizione x
+        newPositions[i][0] -= h
+        
+        # Calcolo del gradiente rispetto a y
+        newPositions[i][1] += h
+        newIndicesY = calculateInitialCoverageIndices(targets, newPositions, r, mp)
+        newTotalIndexY = calculateInitialTotalCoverageIndex(newIndicesY, 1)
+        gradientY = (newTotalIndexY - totalCoverageIndex_0) / h
+        
+        # Reset della posizione y, anche se non necessario perchè non uso più il dato, ma messo per chiarezza codice
+        newPositions[i][1] -= h
+        
+        # Aggiungi il gradiente dell'agente corrente alla lista dei gradienti
+        initialGradients.append((gradientX, gradientY))
     
-    return gradient
+    return initialGradients
+
+    # Questa funzione restituisce una lista di tuple, dove ogni tupla contiene il gradiente dell'indice di 
+    # copertura totale rispetto alle coordinate x e y di ciascun agente.
+    #
+    # Puoi poi utilizzare questa funzione per ottimizzare le posizioni degli agenti in modo da massimizzare
+    # l'indice di copertura totale. Ad esempio, puoi utilizzare l'algoritmo di ascesa del gradiente per
+    # aggiornare le posizioni degli agenti iterativamente fino a quando l'indice di copertura totale non
+    # raggiunge un valore desiderato
 

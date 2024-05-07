@@ -5,6 +5,7 @@ from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, p
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints
+from gradient import gradientOfInitialCoverageIndex
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -89,8 +90,15 @@ def main():
     
     print("\n")
     lowerboundIndex = 1 #=E*
+    # QUESTA PARTE SI PUO' ANCHE COMMENTARE, DATO CHE PASSO TUTTO ALLA FUNZIONE GRADIENTE TANTO
     totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
     print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
+    
+    # 4.1) CALCOLO GRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i
+    initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex)
+    print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
+    for i, gradient in enumerate(initalGradients):
+        print(f"Agente {i+1}: {gradient}")
     
     
 #---------------------------------------------------------------------------------------------------------
