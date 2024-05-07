@@ -25,6 +25,9 @@ STEP 3) CREO UNO SCENARIO INIZIALE DI AGENTI E CALCOLO GLI INDICI DI COPERTURA A
       -Plotto lo scenario iniziale completo a t=0 sia di droni che di target, mettere simboli diversi
       per droni e target ovviamente
 
-      -Calcolo anche l'E complessivo all'istante 0, implica devo fare la funzione sigmoidale
+STEP 4) ADESSO CALCOLO L'EFFETTIVO INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0
 
-STEP 4) ALGORITMO
+      FATTO
+      -Calcolo l'E complessivo all'istante 0, implica devo fare la funzione sigmoidale
+
+STEP 5) ALGORITMO

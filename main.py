@@ -3,13 +3,14 @@ import sys
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
-from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices
+from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints
 
 #---------------------------------------------------------------------------------------------------------
 
 def main():
     
+    #------------------------------------------------------------------------------------------
     # 1, 2.1) CARICO IL DATASET E CREO UNO SCENARIO DI TRAIETTORIE DI TARGET SELZIONATE
     
     # Apri il file per scrivere l'output, nel file txt ci metto le traiettorie selezionate
@@ -38,15 +39,16 @@ def main():
     
     print(f"E' stato creato uno scenario con {numTargets} traiettorie selezionate della durata di "
       f"{duration} secondi. I dettagli dello scenario sono stati salvati "
-      f"in 'outputSetTargets.txt'.\n")
-    
-    print("Il grafico che mostra le traiettorie selezionate è presente in 'selectedTrajectories.png'.\n\n")
+      f"in 'outputSetTargets.txt'.\n\n")
     
     
+    #------------------------------------------------------------------------------------------
     # 2.2) CREO UN GRAFICO DELLE TRAIETTORIE SELEZIONATE, CON SOLO IL LORO PUNTO DI PARTENZA
     
     plotStartingPointOfTrajectories(createdDatasetOfTargets, plotDir="startingPoints.png")
      
+     
+    #------------------------------------------------------------------------------------------
     # 3) CREO UNO SCENARIO INIZIALE DI AGENTI (DRONI) E CALCOLO GLI INDICI DI COPERTURA A t=0 
     # PER OGNI TARGET
     
@@ -76,11 +78,20 @@ def main():
     initialCoverageIndices = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
     print("\n\nINDICI DI COPERTURA INIZIALI E_j AL TEMPO t=0:")
     for i, coverage_index in enumerate(initialCoverageIndices):
-        print(f"E_{i}: {coverage_index}")
+        print(f"E_{i}_(0): {coverage_index}")
         
     # ora plotto il grafico delle traiettorie, insieme agli startin point degli agenti
     plotTrajectoriesWithAgentStartPoints(createdDatasetOfTargets, initialAgentPositions, plotDir="trajectoriesWithAgentStartPoints.png")
-        
+    
+    
+    #------------------------------------------------------------------------------------------
+    # 4) CALCOLO L'EFFETTIVO INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0
+    
+    print("\n")
+    lowerboundIndex = 1 #=E*
+    totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
+    print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
+    
     
 #---------------------------------------------------------------------------------------------------------
 

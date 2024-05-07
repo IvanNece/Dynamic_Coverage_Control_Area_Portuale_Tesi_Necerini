@@ -1,3 +1,4 @@
+import numpy as np
 
 #--------------------------------------------------------------------------------------------------------
 
@@ -58,6 +59,7 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
     
     # Itera su tutti i target
     for trajectory in targets:
+        # [1] perchè prendo solo le misure, non lo stato vero
         measurement0 = trajectory[1]
         # il primo 0 indica il tempo in secondi, il secondo numero indica la x (0) o la y (1)
         qx0 = measurement0[0, 0]  # Coordinate x del target al tempo t=0
@@ -85,3 +87,20 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
     
     # avrà dunque un vettore composto da 10 elementi (= nr targets)
     return initialCoverageIndices
+
+#--------------------------------------------------------------------------------------------------------
+
+# funzione sigmoidale
+def sigmoid(x, lb):
+    return (np.tanh(x - lb) + 1) / 2
+
+
+# calcolo dell'indice di copertura totale E(0), al tempo 0 quindi
+def calculateInitialTotalCoverageIndex(initialCoverageIndices: list, lowerboundIndex):
+    totalCoverageIndex_0 = 0
+    for i, index in enumerate(initialCoverageIndices):
+        indexWithSigmoid = sigmoid(index, lowerboundIndex)
+        totalCoverageIndex_0 += indexWithSigmoid
+        print(f"Indice di copertura parziale sigmoidale per l'elemento {i}: {indexWithSigmoid}")
+        
+    return totalCoverageIndex_0
