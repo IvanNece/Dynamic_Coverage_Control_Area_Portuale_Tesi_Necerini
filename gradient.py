@@ -56,16 +56,19 @@ def gradientOfInitialCoverageIndex(targets, initialAgents, r, mp, lb=1, h=1e-5):
 # AL TEMPO t GENERICO
 # Utilizzo formula classica differenze finite, wikipedia
 # Funzione per calcolare il gradiente dell'indice di copertura totale E(t) rispetto alle posizioni degli agenti i
-def gradientOfCoverageIndex(targets, agentsPosition, r, mp, lb=1, h=1e-5):
-    gradients_t = []
-    coverageIndices = calculateCoverageIndices(targets, agentsPosition, r, mp)
+def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb=1, h=1e-5):
+    # Inizializza un array di zeri per i gradienti
+    gradients_t = np.zeros((len(agentsPosition), 2)) 
+    
+    coverageIndices = calculateCoverageIndices(targets, agentsPosition, t, r, mp)
     # Utilizza un lowerbound arbitrario di 1
-    totalCoverageIndex_t = calculateInitialTotalCoverageIndex(coverageIndices, 1)  
+    totalCoverageIndex_t = calculateInitialTotalCoverageIndex(coverageIndices, lb)  
     
     # Iterazione su ciascun agente per calcolare il gradiente
     for i in range(len(agentsPosition)):
         # Copia profonda delle posizioni iniziali degli agenti
-        newPositions = [list(pos) for pos in agentsPosition]
+        # newPositions = [list(pos) for pos in agentsPosition]
+        newPositions = np.copy(agentsPosition)  # Usa np.copy per una copia profonda
         
         # Calcolo del gradiente rispetto a x
         newPositions[i][0] += h
@@ -86,6 +89,8 @@ def gradientOfCoverageIndex(targets, agentsPosition, r, mp, lb=1, h=1e-5):
         newPositions[i][1] -= h
         
         # Aggiungi il gradiente dell'agente corrente alla lista dei gradienti
-        gradients_t.append((gradientX, gradientY))
+        # gradients_t.append((gradientX, gradientY))
+        # Assegna i gradienti calcolati al vettore dei gradienti
+        gradients_t[i] = [gradientX, gradientY]
     
     return gradients_t

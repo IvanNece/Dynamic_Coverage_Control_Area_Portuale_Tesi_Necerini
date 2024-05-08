@@ -7,7 +7,10 @@ from gradient import gradientOfCoverageIndex
 
 #TODO VEDERE SE FUNZIONA CON UN DEBUG AL VOLO
 
-def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb, NUMTARGETS, NUMAGENTS, NUMSECONDS, EPSILON):
+def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb, NUMAGENTS, NUMSECONDS, EPSILON):
+    # Assicurati che agentsPosition sia un array NumPy bidimensionale
+    agentsPosition = np.array(agentsPosition)
+    
     # NUMSECONDS x NUMAGENTS x 2 (x, y coordinates)
     agentsTrajectories = np.zeros((NUMSECONDS, NUMAGENTS, 2))  
     
@@ -26,18 +29,34 @@ def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb
         # l'array possa contenere i gradienti per ogni agente.
         # Calcola il gradiente dell'indice di copertura per ogni agente per determinare la direzione di movimento ottimale
         # Preallocazione dell'array per i gradienti con la stessa dimensione delle posizioni degli agenti
-        gradient_t = np.zeros((NUMAGENTS, 2))  # 2 per x e y
+        gradients_t = np.zeros((NUMAGENTS, 2))  # 2 per x e y
+        
+        # Calcola il gradiente dell'indice di copertura per ogni agente
+        # Lo faccio fuori dal ciclo perchè la funzione è già fatta per calcolare il gradiente
+        # di ogni agente i al tempo t
+        gradients_t = gradientOfCoverageIndex(targetsTrajectories, agentsPosition, t, r, mp, lb)
+        
         # Uso del ciclo for classico per iterare sugli agenti
         for i in range(NUMAGENTS):
-            # Calcolo del gradiente per l'agente i-esimo
-            gradient_t[i] = gradientOfCoverageIndex(targetsTrajectories, agentsPosition, r, mp, lb)
             # Aggiornamento della posizione dell'agente i-esimo
-            agentsPosition[i] += EPSILON * gradient_t
+            # Lo fa in automatico sia di x che di y l'aggiornamento essendo entrmabi due array
+            # numpy bidimensionali
+            agentsPosition[i] += EPSILON * gradients_t[i]
             
         # Salva la posizione aggiornata di tutti gli agenti al tempo t
         agentsTrajectories[t] = agentsPosition.copy()
-        #TODO CONTROLLARE COME E' STRUTTURATO L'ARRAY DELLE POSIZIONI DEGLI AGENTI
+        # L'uso del metodo .copy() è cruciale qui. Senza .copy(), l'assegnazione avrebbe solo creato 
+        # un riferimento all'array agentsPosition e non una copia fisica dei dati. Ciò significa che 
+        # modifiche future ad agentsPosition avrebbero influenzato anche i dati già memorizzati in
+        # agentsTrajectories. Con .copy(), si garantisce che ogni "fetta" di tempo in agentsTrajectories
+        # mantenga una copia indipendente e immutabile delle posizioni degli agenti come erano alla fine
+        # di quel secondo specifico.
 
     return agentsTrajectories
+
+    # ESEMPIO:
+    # Con 4 agenti e una simulazione di 100 secondi, alla fine della simulazione, agentsTrajectories
+    # sarà una matrice di dimensione 100 x 4 x 2. Ogni elemento agentsTrajectories[t][i] sarà un array
+    # di due elementi [x, y], rappresentando la posizione dell'agente i al secondo t.
 
     

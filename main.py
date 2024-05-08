@@ -6,6 +6,7 @@ from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgent
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints
 from gradient import gradientOfInitialCoverageIndex
+from coverageAlgorithm import coverageAlgorithm
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -104,7 +105,14 @@ def main():
     #------------------------------------------------------------------------------------------
     # 5) ALGORITMO
     
+    # Passo di salita
+    epsilon = 0.1
+    agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, numAgents, duration, epsilon)
     
+    # Stampa tutte le traiettorie dei targets
+    print("\n\nTutte le traiettorie degli agenti:")
+    for i, agentTrajectory in enumerate(agentTrajectories):
+        print(f"Istante {i+1}:\n{agentTrajectory}")
     
     
 #---------------------------------------------------------------------------------------------------------

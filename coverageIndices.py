@@ -25,6 +25,12 @@ def calculateCoverageIndices(targets: list, agentsPosition: list, t, r, mp):
     for j, trajectory in enumerate(targets):
         # [1] perchè prendo solo le misure, non lo stato vero
         measurement = trajectory[1]
+        
+        # # Aggiungi un controllo per assicurarti che t sia un indice valido
+        # if t >= len(measurement):
+        #     print(f"Errore: indice t={t} fuori dai limiti per la traiettoria {j}. Lunghezza traiettoria: {len(measurement)}.")
+        #     continue  # Salta questa traiettoria se t è fuori dai limiti
+        
         # t indica l'istante di tempo, il secondo numero indica la x (0) o la y (1)
         qx = measurement[t, 0]  # Coordinate x del target al tempo t
         qy = measurement[t, 1]  # Coordinate y del target al tempo t
@@ -66,6 +72,6 @@ def calculateTotalCoverageIndex(coverageIndices: list, t, lowerboundIndex):
     for i, index in enumerate(coverageIndices):
         indexWithSigmoid = sigmoid(index, lowerboundIndex)
         totalCoverageIndex_t += indexWithSigmoid
-        print(f"Indice di copertura parziale sigmoidale per l'elemento {i}: {indexWithSigmoid}")
+        #print(f"Indice di copertura parziale sigmoidale per l'elemento {i}: {indexWithSigmoid}")
         
     return totalCoverageIndex_t

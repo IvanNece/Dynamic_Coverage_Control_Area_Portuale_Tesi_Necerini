@@ -103,6 +103,6 @@ def calculateInitialTotalCoverageIndex(initialCoverageIndices: list, lowerboundI
     for i, index in enumerate(initialCoverageIndices):
         indexWithSigmoid = sigmoid(index, lowerboundIndex)
         totalCoverageIndex_0 += indexWithSigmoid
-        print(f"Indice di copertura parziale sigmoidale per l'elemento {i}: {indexWithSigmoid}")
+        #print(f"Indice di copertura parziale sigmoidale per l'elemento {i}: {indexWithSigmoid}")
         
     return totalCoverageIndex_0
