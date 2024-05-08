@@ -109,10 +109,10 @@ def main():
     epsilon = 0.1
     agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, numAgents, duration, epsilon)
     
-    # # Stampa le traiettorie degli agenti
-    # print("\n\nTraiettorie degli agenti:")
-    # for i, agent_trajectory in enumerate(agentTrajectories):
-    #     print(f"Agente {i+1}:\n{agent_trajectory}")
+    # Stampa le traiettorie degli agenti
+    print("\n\nTraiettorie degli agenti:")
+    for i, agent_trajectory in enumerate(agentTrajectories):
+        print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
     
     plotAll(createdDatasetOfTargets, agentTrajectories, plotDir="finalTrajectories.png")
     
