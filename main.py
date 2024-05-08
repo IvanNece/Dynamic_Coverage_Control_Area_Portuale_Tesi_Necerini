@@ -54,8 +54,17 @@ def main():
     # 3) CREO UNO SCENARIO INIZIALE DI AGENTI (DRONI) E CALCOLO GLI INDICI DI COPERTURA A t=0 
     # PER OGNI TARGET
     
+    # DEFINIZIONE PARAMETRI IMPORTANTI
     numAgents = 4
     initialAreaSize = 200
+    # raggio di visione degli agenti (droni)
+    r = 500
+    # peak sensing quality
+    mp = 2
+    # Passo di salita
+    epsilon = 0.5
+    #=E*
+    lowerboundIndex = 1
     
     # Genera le posizioni iniziali degli agenti
     initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
@@ -67,11 +76,6 @@ def main():
         
     # Plot delle posizioni iniziali degli agenti
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
-    
-    # raggio di visione degli agenti (droni)
-    r = 300
-    # peak sensing quality
-    mp = 2
     
     # calcolo E_00_0 come prova, sarebbe E00(0)
     E_00_0 = calculateE_00_0(createdDatasetOfTargets, initialAgentPositions, r, mp)
@@ -90,7 +94,7 @@ def main():
     # 4) CALCOLO L'EFFETTIVO INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0
     
     print("\n")
-    lowerboundIndex = 1 #=E*
+    
     # QUESTA PARTE SI PUO' ANCHE COMMENTARE, DATO CHE PASSO TUTTO ALLA FUNZIONE GRADIENTE TANTO
     totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
     print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
@@ -105,8 +109,6 @@ def main():
     #------------------------------------------------------------------------------------------
     # 5) ALGORITMO
     
-    # Passo di salita
-    epsilon = 0.1
     agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, numAgents, duration, epsilon)
     
     # Stampa le traiettorie degli agenti
