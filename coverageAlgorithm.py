@@ -38,7 +38,12 @@ def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb
         gradients_t = gradientOfCoverageIndex(targetsTrajectories, agentsPosition, t, r, mp, lb)
         
         # Stampa i gradienti per monitorare i cambiamenti
-        print(f"Iterazione {t+1}, Gradienti: {gradients_t}\n")
+        print(f"Iterazione {t+1}, Gradienti:\n {gradients_t}\n")
+        
+        # Verifica se i gradienti sono vicini a zero e termina se vero
+        if np.all(np.abs(gradients_t) < 1e-6):  # Soglia da regolare a seconda delle esigenze
+            print("I gradienti sono vicini a zero, terminazione anticipata dell'algoritmo.")
+            break
         
         # Uso del ciclo for classico per iterare sugli agenti
         for i in range(NUMAGENTS):

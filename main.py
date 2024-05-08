@@ -4,7 +4,7 @@ import sys
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
-from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints
+from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
 from gradient import gradientOfInitialCoverageIndex
 from coverageAlgorithm import coverageAlgorithm
 
@@ -69,9 +69,9 @@ def main():
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
     # raggio di visione degli agenti (droni)
-    r = 200
+    r = 300
     # peak sensing quality
-    mp = 1
+    mp = 2
     
     # calcolo E_00_0 come prova, sarebbe E00(0)
     E_00_0 = calculateE_00_0(createdDatasetOfTargets, initialAgentPositions, r, mp)
@@ -114,6 +114,7 @@ def main():
     # for i, agent_trajectory in enumerate(agentTrajectories):
     #     print(f"Agente {i+1}:\n{agent_trajectory}")
     
+    plotAll(createdDatasetOfTargets, agentTrajectories, plotDir="finalTrajectories.png")
     
 #---------------------------------------------------------------------------------------------------------
 
