@@ -21,7 +21,8 @@ def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb
         
         # calcola l'indice di copertura totale combinando gli indici di tutti i target
         # calcolo E(t)
-        totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices_t, t, lb)
+        # totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices_t, t, lb)
+        # tanto viene calcolato dentro gradientOfCoverageIndex
         
             
         # Prima di iniziare il ciclo, creiamo un array di zeri con la stessa forma delle posizioni
@@ -35,6 +36,9 @@ def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb
         # Lo faccio fuori dal ciclo perchè la funzione è già fatta per calcolare il gradiente
         # di ogni agente i al tempo t
         gradients_t = gradientOfCoverageIndex(targetsTrajectories, agentsPosition, t, r, mp, lb)
+        
+        # Stampa i gradienti per monitorare i cambiamenti
+        print(f"Iterazione {t+1}, Gradienti: {gradients_t}\n")
         
         # Uso del ciclo for classico per iterare sugli agenti
         for i in range(NUMAGENTS):

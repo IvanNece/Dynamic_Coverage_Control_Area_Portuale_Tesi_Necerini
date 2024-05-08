@@ -61,8 +61,8 @@ def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb=1, h=1e-5):
     gradients_t = np.zeros((len(agentsPosition), 2)) 
     
     coverageIndices = calculateCoverageIndices(targets, agentsPosition, t, r, mp)
-    # Utilizza un lowerbound arbitrario di 1
-    totalCoverageIndex_t = calculateInitialTotalCoverageIndex(coverageIndices, lb)  
+
+    totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices, t, lb)  
     
     # Iterazione su ciascun agente per calcolare il gradiente
     for i in range(len(agentsPosition)):
