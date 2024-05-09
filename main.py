@@ -12,6 +12,19 @@ from coverageAlgorithm import coverageAlgorithm
 
 def main():
     
+    # DEFINIZIONE PARAMETRI IMPORTANTI
+    
+    numTargets = 10 # numero di traittorie selezionate, target (barche)
+    duration = 100  # secondi di durata delle traiettorie
+    numAgents = 4   # numero di agenti (droni)
+    initialAreaSize = 200   # dimensione dell'area iniziale dove stanno a t=0 i target e gli agenti
+    r = 200 # raggio di visione degli agenti (droni)
+    mp = 1   # peak sensing quality
+    epsilon = 0.1   # passi di salita, decide la velocità degli agenti
+    lowerboundIndex = 1 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
+    h = 1e-2    # h = sensibilità del calcolo del gradiente
+   
+    
     #------------------------------------------------------------------------------------------
     # 1, 2.1) CARICO IL DATASET E CREO UNO SCENARIO DI TRAIETTORIE DI TARGET SELZIONATE
     
@@ -30,8 +43,6 @@ def main():
         except Exception as e:
             print("Errore durante il caricamento del dataset:", e)
             
-        numTargets = 10 # numero di traittorie selezionate
-        duration = 100  # secondi di durata delle traiettorie
         createdDatasetOfTargets = buildTheSet(numTargets, inputDataset, duration)
         printDataset(createdDatasetOfTargets)
         plotTrajectories(createdDatasetOfTargets, plotDir="selectedTrajectories.png")
@@ -53,20 +64,6 @@ def main():
     #------------------------------------------------------------------------------------------
     # 3) CREO UNO SCENARIO INIZIALE DI AGENTI (DRONI) E CALCOLO GLI INDICI DI COPERTURA A t=0 
     # PER OGNI TARGET
-    
-    # DEFINIZIONE PARAMETRI IMPORTANTI
-    numAgents = 4
-    initialAreaSize = 200
-    # raggio di visione degli agenti (droni)
-    r = 200
-    # peak sensing quality
-    mp = 1
-    # Passo di salita
-    epsilon = 0.1
-    #=E*
-    lowerboundIndex = 1
-    # h = sensibilità del calcolo del gradiente
-    h = 1e-2
     
     # Genera le posizioni iniziali degli agenti
     initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
@@ -114,9 +111,9 @@ def main():
     agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
     
     # Stampa le traiettorie degli agenti
-    print("\n\nTraiettorie degli agenti:")
-    for i, agent_trajectory in enumerate(agentTrajectories):
-        print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
+    # print("\n\nTraiettorie degli agenti:")
+    # for i, agent_trajectory in enumerate(agentTrajectories):
+    #     print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
     
     plotAll(createdDatasetOfTargets, agentTrajectories, plotDir="finalTrajectories.png")
     
