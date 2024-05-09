@@ -58,13 +58,15 @@ def main():
     numAgents = 4
     initialAreaSize = 200
     # raggio di visione degli agenti (droni)
-    r = 500
+    r = 200
     # peak sensing quality
-    mp = 2
+    mp = 1
     # Passo di salita
-    epsilon = 0.5
+    epsilon = 0.1
     #=E*
     lowerboundIndex = 1
+    # h = sensibilità del calcolo del gradiente
+    h = 1e-2
     
     # Genera le posizioni iniziali degli agenti
     initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
@@ -100,7 +102,7 @@ def main():
     print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
     
     # 4.1) CALCOLO GRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i
-    initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex)
+    initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
     print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
     for i, gradient in enumerate(initalGradients):
         print(f"Agente {i+1}: {gradient}")
@@ -109,12 +111,12 @@ def main():
     #------------------------------------------------------------------------------------------
     # 5) ALGORITMO
     
-    agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, numAgents, duration, epsilon)
+    agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
     
     # Stampa le traiettorie degli agenti
-    # print("\n\nTraiettorie degli agenti:")
-    # for i, agent_trajectory in enumerate(agentTrajectories):
-    #     print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
+    print("\n\nTraiettorie degli agenti:")
+    for i, agent_trajectory in enumerate(agentTrajectories):
+        print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
     
     plotAll(createdDatasetOfTargets, agentTrajectories, plotDir="finalTrajectories.png")
     
