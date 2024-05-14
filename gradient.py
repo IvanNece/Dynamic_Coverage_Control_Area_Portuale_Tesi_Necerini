@@ -103,8 +103,8 @@ def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb=1, h=1e-2):
         
         # Calcolo del gradiente rispetto a x
         newPositions[i][0] += h
-        newIndicesX = calculateInitialCoverageIndices(targets, newPositions, r, mp)
-        newTotalIndexX = calculateInitialTotalCoverageIndex(newIndicesX, 1)
+        newIndicesX = calculateCoverageIndices(targets, newPositions, t, r, mp)
+        newTotalIndexX = calculateTotalCoverageIndex(newIndicesX, t, 1)
         gradientX = (newTotalIndexX - totalCoverageIndex_t) / h
         
         # Reset della posizione x
@@ -112,8 +112,8 @@ def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb=1, h=1e-2):
         
         # Calcolo del gradiente rispetto a y
         newPositions[i][1] += h
-        newIndicesY = calculateInitialCoverageIndices(targets, newPositions, r, mp)
-        newTotalIndexY = calculateInitialTotalCoverageIndex(newIndicesY, 1)
+        newIndicesY = calculateCoverageIndices(targets, newPositions, t, r, mp)
+        newTotalIndexY = calculateTotalCoverageIndex(newIndicesY, t, 1)
         gradientY = (newTotalIndexY - totalCoverageIndex_t) / h
         
         # Reset della posizione y, anche se non necessario perchè non uso più il dato, ma messo per chiarezza codice

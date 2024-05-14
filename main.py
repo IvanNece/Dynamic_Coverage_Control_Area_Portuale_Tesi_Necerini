@@ -15,12 +15,12 @@ def main():
     # DEFINIZIONE PARAMETRI IMPORTANTI
     
     numTargets = 10 # numero di traittorie selezionate, target (barche)
-    duration = 100  # secondi di durata delle traiettorie
+    duration = 200  # secondi di durata delle traiettorie
     numAgents = 4   # numero di agenti (droni)
     initialAreaSize = 200   # dimensione dell'area iniziale dove stanno a t=0 i target e gli agenti
-    r = 200 # raggio di visione degli agenti (droni)
+    r = 50 # raggio di visione degli agenti (droni)
     mp = 1   # peak sensing quality
-    epsilon = 0.1   # passi di salita, decide la velocità degli agenti
+    epsilon = 50   # passi di salita, decide la velocità degli agenti
     lowerboundIndex = 1 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
     h = 1e-2    # h = sensibilità del calcolo del gradiente
    
@@ -111,9 +111,9 @@ def main():
     agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
     
     # Stampa le traiettorie degli agenti
-    # print("\n\nTraiettorie degli agenti:")
-    # for i, agent_trajectory in enumerate(agentTrajectories):
-    #     print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
+    print("\n\nTraiettorie degli agenti:")
+    for i, agent_trajectory in enumerate(agentTrajectories):
+        print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
     
     plotAll(createdDatasetOfTargets, agentTrajectories, plotDir="finalTrajectories.png")
     
