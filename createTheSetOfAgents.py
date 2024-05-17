@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
-def generateInitialAgentPositions(numAgents: int, initialAreaSize: int, r: float):
+def generateInitialAgentPositions(numAgents: int, initialAreaSize: int, r):
     # Calcola il numero di celle in cui distribuire gli agenti
     # Dato che ogni agente copre un'area di raggio 'r', possiamo approssimare che un agente copre un quadrato di lato 'r'
     cellSize = r * np.sqrt(2) / 2

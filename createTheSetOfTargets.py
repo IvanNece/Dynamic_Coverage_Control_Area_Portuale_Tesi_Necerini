@@ -180,8 +180,8 @@ def plotStartingPointOfTrajectories(dataset, plotDir = None):
     else:
         plt.show()
         
-    print("""Come vedo, le coordinate di partenza x e y di tutte le traiettorie, sono comprese
-          tra 0 e 200, dentro il file startingPoints.png lo si vede. Tutto ciò è stato fatto
-          come riprova""")
+    # print("""Come vedo, le coordinate di partenza x e y di tutte le traiettorie, sono comprese
+    #       tra 0 e 200, dentro il file startingPoints.png lo si vede. Tutto ciò è stato fatto
+    #       come riprova""")
     
 

@@ -52,7 +52,7 @@ def main():
         # Ripristina l'output standard
         sys.stdout = original_stdout
     
-    print(f"E' stato creato uno scenario con {numTargets} traiettorie selezionate della durata di "
+    print(f"\n\nE' stato creato uno scenario con {numTargets} traiettorie selezionate della durata di "
       f"{duration} secondi. I dettagli dello scenario sono stati salvati "
       f"in 'outputSetTargets.txt'.\n\n")
     
@@ -70,15 +70,18 @@ def main():
     # Estrai le posizioni iniziali dei target dalle misure
     initialTargetPositions = extractInitialTargetPositions(createdDatasetOfTargets)
     # Stampa le posizioni iniziali dei target
-    print("\n\nPosizioni iniziali dei target:")
-    for i, (x, y) in enumerate(initialTargetPositions):
-        print(f"Target {i+1}: x = {x}, y = {y}")
+    # print("\n\nPosizioni iniziali dei target:")
+    # for i, (x, y) in enumerate(initialTargetPositions):
+    #     print(f"Target {i+1}: x = {x}, y = {y}")
+    
+    # Genera le posizioni iniziali degli agenti
+    #initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
     
     # Genera le posizioni iniziali degli agenti
     initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize, r)
         
     # Stampa le posizioni iniziali degli agenti
-    print("\n\nPosizioni iniziali degli agenti:")
+    print("\nPosizioni iniziali degli agenti:")
     for i, (x, y) in enumerate(initialAgentPositions):
         print(f"Agente {i+1}: x = {x}, y = {y}")
         
@@ -86,7 +89,7 @@ def main():
     plotInitialAgentPositions(initialAgentPositions, plotDir="initialAgentPositions.png")
     
     # calcolo E_00_0 come prova, sarebbe E00(0)
-    E_00_0 = calculateE_00_0(createdDatasetOfTargets, initialAgentPositions, r, mp)
+    #E_00_0 = calculateE_00_0(createdDatasetOfTargets, initialAgentPositions, r, mp)
     
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
     initialCoverageIndices = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
@@ -104,11 +107,11 @@ def main():
     print("\n")
     
     # QUESTA PARTE SI PUO' ANCHE COMMENTARE, DATO CHE PASSO TUTTO ALLA FUNZIONE GRADIENTE TANTO
-    totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
-    print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
+    # totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
+    # print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
     
     # 4.1) CALCOLO GRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i
-    initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
+    #initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
     # print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
     # for i, gradient in enumerate(initalGradients):
     #     print(f"Agente {i+1}: {gradient}")
@@ -129,8 +132,8 @@ def main():
     #------------------------------------------------------------------------------------------
     # 6) CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=200
-    finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[199], 199, r, mp)
-    print("\n\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[duration-1], duration-1, r, mp)
+    print("\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
     for i, coverage_index in enumerate(finalCoverageIndices):
         print(f"E_{i}_(200): {coverage_index}")
     
