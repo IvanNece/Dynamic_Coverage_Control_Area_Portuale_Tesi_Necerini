@@ -1,7 +1,7 @@
 import pickle
 import sys
 
-from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories
+from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories, extractInitialTargetPositions
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
@@ -18,7 +18,7 @@ def main():
     
     numTargets = 10 # numero di traittorie selezionate, target (barche)
     duration = 200  # secondi di durata delle traiettorie
-    numAgents = 5   # numero di agenti (droni)
+    numAgents = 4   # numero di agenti (droni)
     initialAreaSize = 200   # dimensione dell'area iniziale dove stanno a t=0 i target e gli agenti
     r = 100 # raggio di visione degli agenti (droni)
     mp = 1   # peak sensing quality
@@ -67,9 +67,16 @@ def main():
     # 3) CREO UNO SCENARIO INIZIALE DI AGENTI (DRONI) E CALCOLO GLI INDICI DI COPERTURA A t=0 
     # PER OGNI TARGET
     
-    # Genera le posizioni iniziali degli agenti
-    initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
+    # Estrai le posizioni iniziali dei target dalle misure
+    initialTargetPositions = extractInitialTargetPositions(createdDatasetOfTargets)
+    # Stampa le posizioni iniziali dei target
+    print("\n\nPosizioni iniziali dei target:")
+    for i, (x, y) in enumerate(initialTargetPositions):
+        print(f"Target {i+1}: x = {x}, y = {y}")
     
+    # Genera le posizioni iniziali degli agenti
+    initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize, r)
+        
     # Stampa le posizioni iniziali degli agenti
     print("\n\nPosizioni iniziali degli agenti:")
     for i, (x, y) in enumerate(initialAgentPositions):

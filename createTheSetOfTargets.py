@@ -65,6 +65,15 @@ def buildTheSet(numTrajectories: int, inputDataset: list, duration: int):
     
     return selectedTrajectories
 
+
+#--------------------------------------------------------------------------------------------------------
+
+def extractInitialTargetPositions(selectedTrajectories: list):
+    initialTargetPositions = []
+    for _, measurement in selectedTrajectories:
+        initialTargetPositions.append(measurement[0])  # Solo la misura al tempo t=0
+    return np.array(initialTargetPositions)
+
 #--------------------------------------------------------------------------------------------------------
 
 def printDataset(inputDatasetToPrint: list):

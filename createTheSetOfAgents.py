@@ -4,34 +4,55 @@ import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
-
-#--------------------------------------------------------------------------------------------------------
-
-def generateInitialAgentPositions(numAgents: int, initialAreaSize: int):
+def generateInitialAgentPositions(numAgents: int, initialAreaSize: int, r: float):
     # Calcola il numero di celle in cui distribuire gli agenti
-    numRows = int(np.sqrt(numAgents))
+    # Dato che ogni agente copre un'area di raggio 'r', possiamo approssimare che un agente copre un quadrato di lato 'r'
+    cellSize = r * np.sqrt(2) / 2
+    numRows = int(initialAreaSize / cellSize)
     numCols = int(np.ceil(numAgents / numRows))
-    
-    # Calcola le dimensioni di ciascuna cella
-    cellSizeX = initialAreaSize / numCols
-    cellSizeY = initialAreaSize / numRows
     
     # Lista per memorizzare le posizioni degli agenti
     initialAgentPositions = []
-    
+
     # Genera le posizioni degli agenti distribuendoli equamente nelle celle
     for i in range(numRows):
         for j in range(numCols):
             if len(initialAgentPositions) < numAgents:
                 # Calcola le coordinate del centro della cella
-                x_center = (j + 0.5) * cellSizeX
-                y_center = (i + 0.5) * cellSizeY
+                x_center = (j + 0.5) * cellSize
+                y_center = (i + 0.5) * cellSize
                 
                 # Aggiungi la posizione dell'agente alla lista
                 initialAgentPositions.append((x_center, y_center))
     
-    return initialAgentPositions
+    return np.array(initialAgentPositions)
 
+#--------------------------------------------------------------------------------------------------------
+
+# def generateInitialAgentPositions(numAgents: int, initialAreaSize: int):
+#     # Calcola il numero di celle in cui distribuire gli agenti
+#     numRows = int(np.sqrt(numAgents))
+#     numCols = int(np.ceil(numAgents / numRows))
+    
+#     # Calcola le dimensioni di ciascuna cella
+#     cellSizeX = initialAreaSize / numCols
+#     cellSizeY = initialAreaSize / numRows
+    
+#     # Lista per memorizzare le posizioni degli agenti
+#     initialAgentPositions = []
+    
+#     # Genera le posizioni degli agenti distribuendoli equamente nelle celle
+#     for i in range(numRows):
+#         for j in range(numCols):
+#             if len(initialAgentPositions) < numAgents:
+#                 # Calcola le coordinate del centro della cella
+#                 x_center = (j + 0.5) * cellSizeX
+#                 y_center = (i + 0.5) * cellSizeY
+                
+#                 # Aggiungi la posizione dell'agente alla lista
+#                 initialAgentPositions.append((x_center, y_center))
+    
+#     return initialAgentPositions
 
 
 #--------------------------------------------------------------------------------------------------------
