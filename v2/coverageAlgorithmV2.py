@@ -2,6 +2,9 @@ import numpy as np
 
 from coverageIndices import calculateCoverageIndices, calculateTotalCoverageIndex
 from gradient import gradientOfCoverageIndex
+
+from v2.brownianMotion import creationOfBrownianMotionTrajectories
+    
     
 #-------------------------------------------------------------------------------------------------------
 
@@ -11,6 +14,10 @@ def coverageAlgorithmV2(targetsTrajectories: list, agentsPosition: list, r, mp, 
     
     # NUMSECONDS x NUMAGENTS x 2 (x, y coordinates)
     agentsTrajectories = np.zeros((NUMSECONDS, NUMAGENTS, 2))  
+    
+    #CALCOLO DEL MOTO BROWNIANO
+    #Creazione delle traiettorie del moto browniano per la durata specificata
+    m_i_t = creationOfBrownianMotionTrajectories(NUMSECONDS)
     
     for t in range(NUMSECONDS):
         # calcola gli indici di copertura per ogni target data la posizione corrente degli agenti
@@ -24,7 +31,7 @@ def coverageAlgorithmV2(targetsTrajectories: list, agentsPosition: list, r, mp, 
 
         # Uso del ciclo for classico per iterare sugli agenti
         for i in range(NUMAGENTS):
-            agentsPosition[i] += EPSILON * gradients_t[i]
+            agentsPosition[i] += EPSILON * gradients_t[i] + m_i_t[t]
             
         # Salva la posizione aggiornata di tutti gli agenti al tempo t
         agentsTrajectories[t] = agentsPosition.copy()

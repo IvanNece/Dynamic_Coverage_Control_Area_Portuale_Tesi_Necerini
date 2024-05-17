@@ -9,6 +9,7 @@ from gradient import gradientOfInitialCoverageIndex
 from coverageIndices import calculateCoverageIndices
 
 import v1.coverageAlgorithmV1
+import v2.coverageAlgorithmV2
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -118,7 +119,7 @@ def main():
         
         
     #------------------------------------------------------------------------------------------
-    # 5) ALGORITMO
+    # 5) ALGORITMO V1
     
     agentTrajectoriesV1 = v1.coverageAlgorithmV1.coverageAlgorithmV1(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
     
@@ -127,12 +128,26 @@ def main():
     # for i, agent_trajectory in enumerate(agentTrajectories):
     #     print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
     
-    plotAll(createdDatasetOfTargets, agentTrajectoriesV1, plotDir="finalTrajectories.png")
+    plotAll(createdDatasetOfTargets, agentTrajectoriesV1, plotDir="finalTrajectoriesV1.png")
     
-    #------------------------------------------------------------------------------------------
-    # 6) CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=200
     finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[duration-1], duration-1, r, mp)
+    print("\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    for i, coverage_index in enumerate(finalCoverageIndices):
+        print(f"E_{i}_(200): {coverage_index}")
+        
+        
+    #------------------------------------------------------------------------------------------
+    # 6) ALGORITMO V2
+    
+    agentTrajectoriesV2 = v2.coverageAlgorithmV2.coverageAlgorithmV2(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
+    
+    plotAll(createdDatasetOfTargets, agentTrajectoriesV2, plotDir="finalTrajectoriesV2.png")
+    
+    #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=200
+    finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV2[duration-1], duration-1, r, mp)
     print("\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
     for i, coverage_index in enumerate(finalCoverageIndices):
         print(f"E_{i}_(200): {coverage_index}")

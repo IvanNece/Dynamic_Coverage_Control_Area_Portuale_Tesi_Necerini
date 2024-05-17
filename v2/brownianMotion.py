@@ -50,25 +50,31 @@ def brownianMotionDef(t, mu, sigma, n):
 
 #-------------------------------------------------------------------------------------------------------
 
-# ESEMPIO DI UTILIZZO
-
-# # Parametri
-# duration = 10  # Cambia questo valore con la durata desiderata
-# t = np.arange(duration)  # Punti temporali da 1 a duration
-# mu = 0
-# sigma = 1
-# n = len(t)
-
-# print("Vettore t:", t)  # Stampa il vettore t
-
-# # Calcola il moto browniano
-# m_i_t = brownianMotionDef(t, mu, sigma, n)
-
-# # Visualizza il risultato
-# plt.plot(m_i_t[:, 0], m_i_t[:, 1], 'o')
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('Moto Browniano')
-# plt.grid(True)
-# plt.show()
+def creationOfBrownianMotionTrajectories(duration):
+    #Punti temporali da 1 a duration con campionamento di 1 secondo
+    t=np.arange(duration) 
+    #Media della distribuzione gaussiana
+    mu=0
+    #Deviazione standard della distribuzione gaussiana
+    sigma=1
+    #Numero di campioni, che è uguale alla lunghezza del vettore temporale t
+    n=len(t)
+    
+    # print("Vettore t:", t)  # Stampa il vettore t
+    
+    #Calcola il moto browniano
+    m_i_t = brownianMotionDef(t, mu, sigma, n)
+    
+    # # Visualizza il risultato
+    # plt.plot(m_i_t[:, 0], m_i_t[:, 1], 'o')
+    # plt.xlabel('x')
+    # plt.ylabel('y')
+    # plt.title('Moto Browniano')
+    # plt.grid(True)
+    # plt.show()
+    
+    # for i in range(len(m)):
+    #     print(f"t = {i+1}: x = {m[i][0]}, y = {m[i][1]}")
+  
+    return m_i_t
 
