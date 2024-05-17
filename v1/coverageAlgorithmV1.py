@@ -5,7 +5,7 @@ from gradient import gradientOfCoverageIndex
     
 #-------------------------------------------------------------------------------------------------------
 
-def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb, h, NUMAGENTS, NUMSECONDS, EPSILON):
+def coverageAlgorithmV1(targetsTrajectories: list, agentsPosition: list, r, mp, lb, h, NUMAGENTS, NUMSECONDS, EPSILON):
     # Assicurati che agentsPosition sia un array NumPy bidimensionale
     agentsPosition = np.array(agentsPosition)
     
@@ -36,7 +36,7 @@ def coverageAlgorithm(targetsTrajectories: list, agentsPosition: list, r, mp, lb
         gradients_t = gradientOfCoverageIndex(targetsTrajectories, agentsPosition, t, r, mp, lb, h)
         
         # Stampa i gradienti per monitorare i cambiamenti
-        print(f"Iterazione {t+1}, Gradienti:\n {gradients_t}\n")
+        #print(f"Iterazione {t+1}, Gradienti:\n {gradients_t}\n")
         
         # Verifica se i gradienti sono vicini a zero e termina se vero
         # if np.all(np.abs(gradients_t) < 1e-6):  # Soglia da regolare a seconda delle esigenze

@@ -6,7 +6,9 @@ from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgent
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
 from gradient import gradientOfInitialCoverageIndex
-from coverageAlgorithm import coverageAlgorithm
+from coverageIndices import calculateCoverageIndices
+
+import v1.coverageAlgorithmV1
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -16,11 +18,11 @@ def main():
     
     numTargets = 10 # numero di traittorie selezionate, target (barche)
     duration = 200  # secondi di durata delle traiettorie
-    numAgents = 4   # numero di agenti (droni)
+    numAgents = 5   # numero di agenti (droni)
     initialAreaSize = 200   # dimensione dell'area iniziale dove stanno a t=0 i target e gli agenti
-    r = 50 # raggio di visione degli agenti (droni)
+    r = 100 # raggio di visione degli agenti (droni)
     mp = 1   # peak sensing quality
-    epsilon = 50   # passi di salita, decide la velocità degli agenti
+    epsilon = 100   # passi di salita, decide la velocità degli agenti
     lowerboundIndex = 1 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
     h = 1e-2    # h = sensibilità del calcolo del gradiente
    
@@ -100,22 +102,30 @@ def main():
     
     # 4.1) CALCOLO GRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i
     initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
-    print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
-    for i, gradient in enumerate(initalGradients):
-        print(f"Agente {i+1}: {gradient}")
+    # print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
+    # for i, gradient in enumerate(initalGradients):
+    #     print(f"Agente {i+1}: {gradient}")
         
         
     #------------------------------------------------------------------------------------------
     # 5) ALGORITMO
     
-    agentTrajectories = coverageAlgorithm(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
+    agentTrajectoriesV1 = v1.coverageAlgorithmV1.coverageAlgorithmV1(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon)
     
     # Stampa le traiettorie degli agenti
-    print("\n\nTraiettorie degli agenti:")
-    for i, agent_trajectory in enumerate(agentTrajectories):
-        print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
+    # print("\n\nTraiettorie degli agenti:")
+    # for i, agent_trajectory in enumerate(agentTrajectories):
+    #     print(f"Agente al tempo {i+1}:\n{agent_trajectory}")
     
-    plotAll(createdDatasetOfTargets, agentTrajectories, plotDir="finalTrajectories.png")
+    plotAll(createdDatasetOfTargets, agentTrajectoriesV1, plotDir="finalTrajectories.png")
+    
+    #------------------------------------------------------------------------------------------
+    # 6) CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=200
+    finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[199], 199, r, mp)
+    print("\n\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    for i, coverage_index in enumerate(finalCoverageIndices):
+        print(f"E_{i}_(200): {coverage_index}")
     
 #---------------------------------------------------------------------------------------------------------
 

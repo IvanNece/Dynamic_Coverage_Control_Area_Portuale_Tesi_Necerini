@@ -4,27 +4,35 @@ import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
+
+#--------------------------------------------------------------------------------------------------------
+
 def generateInitialAgentPositions(numAgents: int, initialAreaSize: int):
     # Calcola il numero di celle in cui distribuire gli agenti
-    numCells = int(np.sqrt(numAgents))
+    numRows = int(np.sqrt(numAgents))
+    numCols = int(np.ceil(numAgents / numRows))
     
     # Calcola le dimensioni di ciascuna cella
-    cellSize = initialAreaSize / numCells
+    cellSizeX = initialAreaSize / numCols
+    cellSizeY = initialAreaSize / numRows
     
     # Lista per memorizzare le posizioni degli agenti
     initialAgentPositions = []
     
     # Genera le posizioni degli agenti distribuendoli equamente nelle celle
-    for i in range(numCells):
-        for j in range(numCells):
-            # Calcola le coordinate del centro della cella
-            x_center = (i + 0.5) * cellSize
-            y_center = (j + 0.5) * cellSize
-            
-            # Aggiungi la posizione dell'agente alla lista
-            initialAgentPositions.append((x_center, y_center))
+    for i in range(numRows):
+        for j in range(numCols):
+            if len(initialAgentPositions) < numAgents:
+                # Calcola le coordinate del centro della cella
+                x_center = (j + 0.5) * cellSizeX
+                y_center = (i + 0.5) * cellSizeY
+                
+                # Aggiungi la posizione dell'agente alla lista
+                initialAgentPositions.append((x_center, y_center))
     
     return initialAgentPositions
+
+
 
 #--------------------------------------------------------------------------------------------------------
 
