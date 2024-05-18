@@ -75,6 +75,7 @@ def main():
     # for i, (x, y) in enumerate(initialTargetPositions):
     #     print(f"Target {i+1}: x = {x}, y = {y}")
     
+    #TODO FARLO PIU OTTIMIZZATO MAGARI USANDO ANCHE initialTargetPositions???
     # Genera le posizioni iniziali degli agenti
     #initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
     
@@ -93,12 +94,13 @@ def main():
     #E_00_0 = calculateE_00_0(createdDatasetOfTargets, initialAgentPositions, r, mp)
     
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
+    # TODO: controllare che siano tutti >= E*
     initialCoverageIndices = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
     print("\n\nINDICI DI COPERTURA INIZIALI E_j AL TEMPO t=0:")
     for i, coverage_index in enumerate(initialCoverageIndices):
         print(f"E_{i}_(0): {coverage_index}")
         
-    # ora plotto il grafico delle traiettorie, insieme agli startin point degli agenti
+    # ora plotto il grafico delle traiettorie, insieme agli starting point degli agenti
     plotTrajectoriesWithAgentStartPoints(createdDatasetOfTargets, initialAgentPositions, plotDir="trajectoriesWithAgentStartPoints.png")
     
     
@@ -112,7 +114,7 @@ def main():
     # print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
     
     # 4.1) CALCOLO GRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i
-    #initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
+    # initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
     # print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
     # for i, gradient in enumerate(initalGradients):
     #     print(f"Agente {i+1}: {gradient}")
@@ -130,11 +132,13 @@ def main():
     
     plotAll(createdDatasetOfTargets, agentTrajectoriesV1, plotDir="finalTrajectoriesV1.png")
     
-    #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
-    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=200
-    finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[duration-1], duration-1, r, mp)
-    print("\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
-    for i, coverage_index in enumerate(finalCoverageIndices):
+    # CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
+    # per verificare che siano tutti >= E*, scopo del progetto
+    # TODO: controllare che siano tutti >= E*
+    finalCoverageIndicesV1 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[duration-1], duration-1, r, mp)
+    print("\nVERSIONE 1 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    for i, coverage_index in enumerate(finalCoverageIndicesV1):
         print(f"E_{i}_(200): {coverage_index}")
         
         
@@ -146,10 +150,11 @@ def main():
     plotAll(createdDatasetOfTargets, agentTrajectoriesV2, plotDir="finalTrajectoriesV2.png")
     
     #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
-    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=200
-    finalCoverageIndices = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV2[duration-1], duration-1, r, mp)
-    print("\nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
-    for i, coverage_index in enumerate(finalCoverageIndices):
+    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
+    # TODO: controllare che siano tutti >= E*
+    finalCoverageIndicesV2 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV2[duration-1], duration-1, r, mp)
+    print("\nVERSIONE 2 ALGORITMO, AGGIUNTA MOTO BROWNIANO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    for i, coverage_index in enumerate(finalCoverageIndicesV2):
         print(f"E_{i}_(200): {coverage_index}")
     
 #---------------------------------------------------------------------------------------------------------
