@@ -33,12 +33,18 @@ STEP 4) ADESSO CALCOLO L'EFFETTIVO INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t
       FATTO
       -Calcolo gradiente complessivo di E per ogni agente i al tempo t=0
 
-STEP 5) ALGORITMO
+ALGORITMO
 
-      -V1 FATTO
+      -5: 
+      V1 FATTO
       -C'è rimasto un problema, che gli indici di copertura dall'istante t=0 all'istante di fine ovvero
       t=duration non migliorando delle volte, anzi peggiorando. COME RISOLVO?
+      -RIMANE TODO IPAD PROBLEMA CHE Ej* NON SONO SOPRA 1 NE ALL'INZIO NE ALLA FINE
 
-      -V2
+      -6:
+      -V2 FATTO
+      -Rimane TODO IPAD
 
-      -V3
+      -7:
+      -V3 FATTO
+      -Rimane TODO IPAD

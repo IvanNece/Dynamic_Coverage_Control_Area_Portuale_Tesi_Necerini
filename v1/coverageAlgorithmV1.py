@@ -46,7 +46,7 @@ def coverageAlgorithmV1(targetsTrajectories: list, agentsPosition: list, r, mp, 
         # Uso del ciclo for classico per iterare sugli agenti
         for i in range(NUMAGENTS):
             # Aggiornamento della posizione dell'agente i-esimo
-            # Lo fa in automatico sia di x che di y l'aggiornamento essendo entrmabi due array
+            # Lo fa in automatico sia di x che di y l'aggiornamento essendo entrambi due array
             # numpy bidimensionali
             agentsPosition[i] += EPSILON * gradients_t[i]
             

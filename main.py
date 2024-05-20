@@ -10,6 +10,7 @@ from coverageIndices import calculateCoverageIndices
 
 import v1.coverageAlgorithmV1
 import v2.coverageAlgorithmV2
+import v3.coverageAlgorithmV3
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ def main():
     epsilon = 100   # passi di salita, decide la velocità degli agenti
     lowerboundIndex = 1 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
     h = 1e-2    # h = sensibilità del calcolo del gradiente
+    delta = 5   # distanza di allontanamento tra agenti
    
     
     #------------------------------------------------------------------------------------------
@@ -152,10 +154,28 @@ def main():
     #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
     # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
     # TODO: controllare che siano tutti >= E*
+    # TODO: cambiare parametri e vedere che succede, sigma e media distribuzione normale
     finalCoverageIndicesV2 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV2[duration-1], duration-1, r, mp)
     print("\nVERSIONE 2 ALGORITMO, AGGIUNTA MOTO BROWNIANO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
     for i, coverage_index in enumerate(finalCoverageIndicesV2):
         print(f"E_{i}_(200): {coverage_index}")
+        
+    #------------------------------------------------------------------------------------------
+    # 7) ALGORITMO V3
+    agentTrajectoriesV3 = v3.coverageAlgorithmV3.coverageAlgorithmV3(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h, numAgents, duration, epsilon, delta)
+    
+    plotAll(createdDatasetOfTargets, agentTrajectoriesV3, plotDir="finalTrajectoriesV3.png")
+    
+    #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
+    # TODO: controllare che siano tutti >= E*
+    # TODO: cambiare parametri e vedere che succede, delta distanza nel calcolo del pot repulsivo
+    finalCoverageIndicesV3 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV3[duration-1], duration-1, r, mp)
+    print("\nVERSIONE 3 ALGORITMO, AGGIUNTA POTENZIALE REPULSIVO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    for i, coverage_index in enumerate(finalCoverageIndicesV3):
+        print(f"E_{i}_(200): {coverage_index}")
+        
+    
     
 #---------------------------------------------------------------------------------------------------------
 
