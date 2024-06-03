@@ -1,5 +1,7 @@
 import pickle
 import sys
+import matplotlib.pyplot as plt
+import logging
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories, extractInitialTargetPositions
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
@@ -7,6 +9,7 @@ from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndi
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
 from gradient import gradientOfInitialCoverageIndex
 from coverageIndices import calculateCoverageIndices, calculateTotalCoverageIndex
+from testTotalCoverageIndex import plotTotalCoverageIndex
 
 import v1.coverageAlgorithmV1
 import v2.coverageAlgorithmV2
@@ -179,7 +182,20 @@ def main():
     # print("\nVERSIONE 3 ALGORITMO, AGGIUNTA POTENZIALE REPULSIVO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
     # for i, coverage_index in enumerate(finalCoverageIndicesV3):
     #     print(f"E_{i}_(200): {coverage_index}")
-        
+    
+    
+    #-----------------------------------------------------------------------------------------------------
+    #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
+    #V1
+    totalCoverageIndex_values = []
+    for t in range(duration):
+        coverageIndices_t = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[t], t, r, mp)
+        totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices_t, t, lowerboundIndex)
+        totalCoverageIndex_values.append(totalCoverageIndex_t)
+
+    # Plotting del totalCoverageIndex nel tempo
+    # Chiamata alla funzione per fare il grafico
+    plotTotalCoverageIndex(totalCoverageIndex_values, plotDir="total_coverage_index_over_time.png")
     
     
 #---------------------------------------------------------------------------------------------------------
