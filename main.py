@@ -2,6 +2,7 @@ import pickle
 import sys
 import matplotlib.pyplot as plt
 import logging
+import numpy as np
 
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories, extractInitialTargetPositions
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
@@ -196,6 +197,25 @@ def main():
     # Plotting del totalCoverageIndex nel tempo
     # Chiamata alla funzione per fare il grafico
     plotTotalCoverageIndex(totalCoverageIndex_values, plotDir="total_coverage_index_over_time.png")
+    
+    
+    #-----------------------------------------------------------------------------------------------------
+    #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
+    #V1, con target fermi!!!
+    
+    # initialTargetPositionsMultiplied = np.tile(initialTargetPositions, (duration, 1, 1))
+    # initialTargetPositionsMultiplied = initialTargetPositionsMultiplied.reshape(duration, len(initialTargetPositions), 2)
+
+    
+    # totalCoverageIndex_values = []
+    # for t in range(duration):
+    #     coverageIndices_t = calculateCoverageIndices(initialTargetPositionsMultiplied, agentTrajectoriesV1[t], t, r, mp)
+    #     totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices_t, t, lowerboundIndex)
+    #     totalCoverageIndex_values.append(totalCoverageIndex_t)
+
+    # # Plotting del totalCoverageIndex nel tempo
+    # # Chiamata alla funzione per fare il grafico
+    # plotTotalCoverageIndex(totalCoverageIndex_values, plotDir="totalIndexWithSTOPPEDtarget.png")
     
     
 #---------------------------------------------------------------------------------------------------------
