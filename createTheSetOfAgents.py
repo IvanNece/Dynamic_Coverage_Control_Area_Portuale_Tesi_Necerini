@@ -4,28 +4,33 @@ import matplotlib.pyplot as plt
 
 #--------------------------------------------------------------------------------------------------------
 
-def generateInitialAgentPositions(numAgents: int, initialAreaSize: int, r):
-    # Calcola il numero di celle in cui distribuire gli agenti
-    # Dato che ogni agente copre un'area di raggio 'r', possiamo approssimare che un agente copre un quadrato di lato 'r'
-    cellSize = r * np.sqrt(2) / 2
-    numRows = int(initialAreaSize / cellSize)
-    numCols = int(np.ceil(numAgents / numRows))
-    
-    # Lista per memorizzare le posizioni degli agenti
-    initialAgentPositions = []
 
-    # Genera le posizioni degli agenti distribuendoli equamente nelle celle
-    for i in range(numRows):
-        for j in range(numCols):
-            if len(initialAgentPositions) < numAgents:
-                # Calcola le coordinate del centro della cella
-                x_center = (j + 0.5) * cellSize
-                y_center = (i + 0.5) * cellSize
-                
-                # Aggiungi la posizione dell'agente alla lista
-                initialAgentPositions.append((x_center, y_center))
+def generateInitialAgentPositions(numAgents: int, initialAreaSize: int, r):
+    if numAgents == 4:
+        # Posizioni specificate per 4 agenti
+        initialAgentPositions = [(50, 50), (50, 150), (150, 50), (150, 150)]
+    else:
+        # Calcola la dimensione della griglia
+        grid_size = int(np.sqrt(numAgents))
+        if grid_size * grid_size < numAgents:
+            grid_size += 1
+
+        # Calcola le distanze tra gli agenti per coprire l'area 200x200
+        x_spacing = (initialAreaSize - 100) / (grid_size - 1)
+        y_spacing = (initialAreaSize - 100) / (grid_size - 1)
+
+        # Lista per memorizzare le posizioni degli agenti
+        initialAgentPositions = []
+
+        # Genera le posizioni degli agenti distribuendoli uniformemente
+        for i in range(grid_size):
+            for j in range(grid_size):
+                if len(initialAgentPositions) < numAgents:
+                    x = 50 + j * x_spacing
+                    y = 50 + i * y_spacing
+                    initialAgentPositions.append((x, y))
     
-    return np.array(initialAgentPositions)
+    return np.array(initialAgentPositions, dtype=float)
 
 #--------------------------------------------------------------------------------------------------------
 

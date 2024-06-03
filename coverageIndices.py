@@ -67,7 +67,7 @@ def sigmoid(x, lb):
     return (np.tanh((x - lb)) + 1) / 2
 
 
-# calcolo dell'indice di copertura totale E(0), al tempo 0 quindi
+# calcolo dell'indice di copertura totale E(t), al tempo t generico
 def calculateTotalCoverageIndex(coverageIndices: list, t, lowerboundIndex):
     totalCoverageIndex_t = 0
     for i, index in enumerate(coverageIndices):

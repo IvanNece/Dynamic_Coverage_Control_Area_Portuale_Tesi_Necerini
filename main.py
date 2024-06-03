@@ -6,7 +6,7 @@ from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgent
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
 from gradient import gradientOfInitialCoverageIndex
-from coverageIndices import calculateCoverageIndices
+from coverageIndices import calculateCoverageIndices, calculateTotalCoverageIndex
 
 import v1.coverageAlgorithmV1
 import v2.coverageAlgorithmV2
@@ -22,9 +22,9 @@ def main():
     duration = 200  # secondi di durata delle traiettorie
     numAgents = 4   # numero di agenti (droni)
     initialAreaSize = 200   # dimensione dell'area iniziale dove stanno a t=0 i target e gli agenti
-    r = 100 # raggio di visione degli agenti (droni)
+    r = 150 # raggio di visione degli agenti (droni)
     mp = 1   # peak sensing quality
-    epsilon = 100   # passi di salita, decide la velocità degli agenti
+    epsilon = 150   # passi di salita, decide la velocità degli agenti
     lowerboundIndex = 1 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
     h = 1e-2    # h = sensibilità del calcolo del gradiente
     delta = 5   # distanza di allontanamento tra agenti
@@ -95,12 +95,13 @@ def main():
     # calcolo E_00_0 come prova, sarebbe E00(0)
     #E_00_0 = calculateE_00_0(createdDatasetOfTargets, initialAgentPositions, r, mp)
     
-    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
-    # TODO: controllare che siano tutti >= E*
+    # # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=0
+    # # CALCOLO INDICI DI COPERTURA ALL'ISTANTE INIZIALE
+    # # TODO: controllare che siano tutti >= E*
     initialCoverageIndices = calculateInitialCoverageIndices(createdDatasetOfTargets, initialAgentPositions, r, mp)
-    print("\n\nINDICI DI COPERTURA INIZIALI E_j AL TEMPO t=0:")
-    for i, coverage_index in enumerate(initialCoverageIndices):
-        print(f"E_{i}_(0): {coverage_index}")
+    # print("\n\nINDICI DI COPERTURA INIZIALI E_j AL TEMPO t=0:")
+    # for i, coverage_index in enumerate(initialCoverageIndices):
+    #     print(f"E_{i}_(0): {coverage_index}")
         
     # ora plotto il grafico delle traiettorie, insieme agli starting point degli agenti
     plotTrajectoriesWithAgentStartPoints(createdDatasetOfTargets, initialAgentPositions, plotDir="trajectoriesWithAgentStartPoints.png")
@@ -112,8 +113,8 @@ def main():
     print("\n")
     
     # QUESTA PARTE SI PUO' ANCHE COMMENTARE, DATO CHE PASSO TUTTO ALLA FUNZIONE GRADIENTE TANTO
-    # totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
-    # print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
+    totalCoverageIndex_0 = calculateInitialTotalCoverageIndex(initialCoverageIndices, lowerboundIndex)
+    print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0: \nE(0): {totalCoverageIndex_0}")
     
     # 4.1) CALCOLO GRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i
     # initalGradients = gradientOfInitialCoverageIndex(createdDatasetOfTargets, initialAgentPositions, r, mp, lowerboundIndex, h)
@@ -134,14 +135,18 @@ def main():
     
     plotAll(createdDatasetOfTargets, agentTrajectoriesV1, plotDir="finalTrajectoriesV1.png")
     
-    # CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
-    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
-    # per verificare che siano tutti >= E*, scopo del progetto
-    # TODO: controllare che siano tutti >= E*
+    # # CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
+    # # per verificare che siano tutti >= E*, scopo del progetto
+    # # TODO: controllare che siano tutti >= E*
     finalCoverageIndicesV1 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV1[duration-1], duration-1, r, mp)
-    print("\nVERSIONE 1 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
-    for i, coverage_index in enumerate(finalCoverageIndicesV1):
-        print(f"E_{i}_(200): {coverage_index}")
+    # print("\nVERSIONE 1 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    # for i, coverage_index in enumerate(finalCoverageIndicesV1):
+    #     print(f"E_{i}_(200): {coverage_index}")
+    
+    # CALCOLO INDICE DI COPERTURA TOTALE ALL'ISTANTE FINALE, PER VEDERE SE MIGLIORA RISPETTO A t=0
+    totalCoverageIndexFinal = calculateTotalCoverageIndex(finalCoverageIndicesV1, duration-1, lowerboundIndex)
+    print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE V1 t=finale: \nE(finale): {totalCoverageIndexFinal}")
         
         
     #------------------------------------------------------------------------------------------
@@ -151,14 +156,14 @@ def main():
     
     plotAll(createdDatasetOfTargets, agentTrajectoriesV2, plotDir="finalTrajectoriesV2.png")
     
-    #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
-    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
-    # TODO: controllare che siano tutti >= E*
-    # TODO: cambiare parametri e vedere che succede, sigma e media distribuzione normale
-    finalCoverageIndicesV2 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV2[duration-1], duration-1, r, mp)
-    print("\nVERSIONE 2 ALGORITMO, AGGIUNTA MOTO BROWNIANO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
-    for i, coverage_index in enumerate(finalCoverageIndicesV2):
-        print(f"E_{i}_(200): {coverage_index}")
+    # #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
+    # # TODO: controllare che siano tutti >= E*
+    # # TODO: cambiare parametri e vedere che succede, sigma e media distribuzione normale
+    # finalCoverageIndicesV2 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV2[duration-1], duration-1, r, mp)
+    # print("\nVERSIONE 2 ALGORITMO, AGGIUNTA MOTO BROWNIANO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    # for i, coverage_index in enumerate(finalCoverageIndicesV2):
+    #     print(f"E_{i}_(200): {coverage_index}")
         
     #------------------------------------------------------------------------------------------
     # 7) ALGORITMO V3
@@ -166,14 +171,14 @@ def main():
     
     plotAll(createdDatasetOfTargets, agentTrajectoriesV3, plotDir="finalTrajectoriesV3.png")
     
-    #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
-    # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
-    # TODO: controllare che siano tutti >= E*
-    # TODO: cambiare parametri e vedere che succede, delta distanza nel calcolo del pot repulsivo
-    finalCoverageIndicesV3 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV3[duration-1], duration-1, r, mp)
-    print("\nVERSIONE 3 ALGORITMO, AGGIUNTA POTENZIALE REPULSIVO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
-    for i, coverage_index in enumerate(finalCoverageIndicesV3):
-        print(f"E_{i}_(200): {coverage_index}")
+    # #CONTROLLO GLI INDICI DI COPERTURA AL TEMPO FINALE
+    # # adesso devo calcolare gli indici di copertura di ogni target j all'istante t=finale
+    # # TODO: controllare che siano tutti >= E*
+    # # TODO: cambiare parametri e vedere che succede, delta distanza nel calcolo del pot repulsivo
+    # finalCoverageIndicesV3 = calculateCoverageIndices(createdDatasetOfTargets, agentTrajectoriesV3[duration-1], duration-1, r, mp)
+    # print("\nVERSIONE 3 ALGORITMO, AGGIUNTA POTENZIALE REPULSIVO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    # for i, coverage_index in enumerate(finalCoverageIndicesV3):
+    #     print(f"E_{i}_(200): {coverage_index}")
         
     
     
