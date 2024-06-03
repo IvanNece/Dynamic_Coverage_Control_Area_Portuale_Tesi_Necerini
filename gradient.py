@@ -84,7 +84,7 @@ def perturbGradientIfCloseToZero(gradients, epsilon=1e-4, threshold=1e-5):
 # AL TEMPO t GENERICO
 # Utilizzo formula classica differenze finite, wikipedia
 # Funzione per calcolare il gradiente dell'indice di copertura totale E(t) rispetto alle posizioni degli agenti i
-def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb=1, h=1e-2):
+def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb, h=1e-2):
     
     # h = PASSO DELLE DIFFERENZE FINITE, sensibilità del calcolo del gradiente
     

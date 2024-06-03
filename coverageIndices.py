@@ -63,7 +63,8 @@ def calculateCoverageIndices(targets: list, agentsPosition: list, t, r, mp):
 
 # funzione sigmoidale
 def sigmoid(x, lb):
-    return (np.tanh(x - lb) + 1) / 2
+    #TODO controllare come passo parametro lb
+    return (np.tanh((x - lb)) + 1) / 2
 
 
 # calcolo dell'indice di copertura totale E(0), al tempo 0 quindi
