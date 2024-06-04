@@ -63,6 +63,9 @@ def buildTheSet(numTrajectories: int, inputDataset: list, duration: int):
     except Exception as e:
         print("Errore durante la creazione dello scenario:", e)
     
+    #truncated_measurements_list = [truncated_measurement for _, truncated_measurement in selectedTrajectories]
+    #print(np.array(truncated_measurements_list).shape)
+    
     return selectedTrajectories
 
 

@@ -64,6 +64,17 @@ def main():
       f"in 'outputSetTargets.txt'.\n\n")
     
     
+    # # Estrarre solo la parte truncated_measurement
+    truncated_measurements_list = [truncated_measurement for _, truncated_measurement in createdDatasetOfTargets]
+    
+    print(np.array(truncated_measurements_list).shape)
+
+    # # Verifica della nuova lista
+    # print("Lunghezza della lista truncated_measurements_list:", len(truncated_measurements_list))
+    # for i, measurement in enumerate(truncated_measurements_list):
+    #     print(f"Forma della misura {i+1}: {measurement.shape}")
+    
+    
     #------------------------------------------------------------------------------------------
     # 2.2) CREO UN GRAFICO DELLE TRAIETTORIE SELEZIONATE, CON SOLO IL LORO PUNTO DI PARTENZA
     
@@ -76,15 +87,12 @@ def main():
     
     # Estrai le posizioni iniziali dei target dalle misure
     initialTargetPositions = extractInitialTargetPositions(createdDatasetOfTargets)
-    # Stampa le posizioni iniziali dei target
+    # # Stampa le posizioni iniziali dei target
     # print("\n\nPosizioni iniziali dei target:")
     # for i, (x, y) in enumerate(initialTargetPositions):
     #     print(f"Target {i+1}: x = {x}, y = {y}")
     
-    #TODO FARLO PIU OTTIMIZZATO MAGARI USANDO ANCHE initialTargetPositions???
-    # Genera le posizioni iniziali degli agenti
-    #initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize)
-    
+    #TODO FARLO PIU OTTIMIZZATO MAGARI USANDO ANCHE initialTargetPositions??? 
     # Genera le posizioni iniziali degli agenti
     initialAgentPositions = generateInitialAgentPositions(numAgents, initialAreaSize, r)
         
@@ -125,7 +133,6 @@ def main():
     # print("\nGRADIENTE INDICE DI COPERTURA COMPLESSIVO A t=0, PER OGNI AGENTE i:")
     # for i, gradient in enumerate(initalGradients):
     #     print(f"Agente {i+1}: {gradient}")
-        
         
     #------------------------------------------------------------------------------------------
     # 5) ALGORITMO V1
@@ -214,6 +221,7 @@ def main():
         totalCoverageIndex_t_stop = calculateTotalCoverageIndex(coverageIndices_t_stop, t, lowerboundIndex)
         totalCoverageIndex_values_stoppedTargets.append(totalCoverageIndex_t_stop)
         
+    print("\n\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0 e t=finale, CON TARGET FERMI: \n:")
     print(totalCoverageIndex_values_stoppedTargets[0])
     print(totalCoverageIndex_values_stoppedTargets[199])
 

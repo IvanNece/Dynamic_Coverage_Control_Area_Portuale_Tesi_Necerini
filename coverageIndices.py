@@ -21,6 +21,9 @@ def calculateCoverageIndices(targets: list, agentsPosition: list, t, r, mp):
     # Inizializza una lista per memorizzare gli indici di copertura iniziali per ogni target
     coverageIndices = []
     
+    #measurement = targets[1]
+    
+    
     # Itera su tutti i target con un indice j esplicito
     for j, trajectory in enumerate(targets):
         # [1] perchè prendo solo le misure, non lo stato vero
