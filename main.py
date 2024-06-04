@@ -10,7 +10,7 @@ from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndi
 from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
 from gradient import gradientOfInitialCoverageIndex
 from coverageIndices import calculateCoverageIndices, calculateTotalCoverageIndex
-from testTotalCoverageIndex import plotTotalCoverageIndex
+from testTotalCoverageIndex import plotTotalCoverageIndex, calculateCoverageIndicesStopped, plotTotalCoverageIndexStopped
 
 import v1.coverageAlgorithmV1
 import v2.coverageAlgorithmV2
@@ -196,26 +196,30 @@ def main():
 
     # Plotting del totalCoverageIndex nel tempo
     # Chiamata alla funzione per fare il grafico
-    plotTotalCoverageIndex(totalCoverageIndex_values, plotDir="total_coverage_index_over_time.png")
+    plotTotalCoverageIndex(totalCoverageIndex_values, plotDir="totalCoverageIndexOverTime.png")
     
     
     #-----------------------------------------------------------------------------------------------------
     #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
     #V1, con target fermi!!!
     
-    # initialTargetPositionsMultiplied = np.tile(initialTargetPositions, (duration, 1, 1))
-    # initialTargetPositionsMultiplied = initialTargetPositionsMultiplied.reshape(duration, len(initialTargetPositions), 2)
+    #print(initialTargetPositions)
+    tempTargetPositions = np.tile(initialTargetPositions, (duration, 1, 1))
+    print(tempTargetPositions.shape)
+    #print(tempTargetPositions)
 
-    
-    # totalCoverageIndex_values = []
-    # for t in range(duration):
-    #     coverageIndices_t = calculateCoverageIndices(initialTargetPositionsMultiplied, agentTrajectoriesV1[t], t, r, mp)
-    #     totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices_t, t, lowerboundIndex)
-    #     totalCoverageIndex_values.append(totalCoverageIndex_t)
+    totalCoverageIndex_values_stoppedTargets = []
+    for t in range(duration):
+        coverageIndices_t_stop = calculateCoverageIndicesStopped(tempTargetPositions, agentTrajectoriesV1[t], t, r, mp)
+        totalCoverageIndex_t_stop = calculateTotalCoverageIndex(coverageIndices_t_stop, t, lowerboundIndex)
+        totalCoverageIndex_values_stoppedTargets.append(totalCoverageIndex_t_stop)
+        
+    print(totalCoverageIndex_values_stoppedTargets[0])
+    print(totalCoverageIndex_values_stoppedTargets[199])
 
-    # # Plotting del totalCoverageIndex nel tempo
-    # # Chiamata alla funzione per fare il grafico
-    # plotTotalCoverageIndex(totalCoverageIndex_values, plotDir="totalIndexWithSTOPPEDtarget.png")
+    # Plotting del totalCoverageIndex nel tempo
+    # Chiamata alla funzione per fare il grafico
+    plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargets, plotDir="totalIndexWithSTOPPEDtarget.png")
     
     
 #---------------------------------------------------------------------------------------------------------
