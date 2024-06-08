@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 
 from initialCoverageIndices import calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
 from coverageIndices import calculateCoverageIndices, calculateTotalCoverageIndex
@@ -81,49 +82,104 @@ def perturbGradientIfCloseToZero(gradients, epsilon=1e-4, threshold=1e-5):
 #--------------------------------------------------------------------------------------------------------
 
 
-# AL TEMPO t GENERICO
-# Utilizzo formula classica differenze finite, wikipedia
-# Funzione per calcolare il gradiente dell'indice di copertura totale E(t) rispetto alle posizioni degli agenti i
-def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb, h=1e-2):
+# # AL TEMPO t GENERICO
+# # Utilizzo formula classica differenze finite, wikipedia
+# # Funzione per calcolare il gradiente dell'indice di copertura totale E(t) rispetto alle posizioni degli agenti i
+# def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb, h):
     
-    # h = PASSO DELLE DIFFERENZE FINITE, sensibilità del calcolo del gradiente
+#     # h = PASSO DELLE DIFFERENZE FINITE, sensibilità del calcolo del gradiente
     
-    # Inizializza un array di zeri per i gradienti
-    gradients_t = np.zeros((len(agentsPosition), 2)) 
+#     # Inizializza un array di zeri per i gradienti
+#     gradients_t = np.zeros((len(agentsPosition), 2)) 
     
-    coverageIndices = calculateCoverageIndices(targets, agentsPosition, t, r, mp)
+#     coverageIndices = calculateCoverageIndices(targets, agentsPosition, t, r, mp)
 
-    totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices, t, lb)  
+#     totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices, lb) 
     
-    # Iterazione su ciascun agente per calcolare il gradiente
-    for i in range(len(agentsPosition)):
-        # Copia profonda delle posizioni iniziali degli agenti
-        # newPositions = [list(pos) for pos in agentsPosition]
-        newPositions = np.copy(agentsPosition)  # Usa np.copy per una copia profonda
+#     #TODO CONTROLLO CHE SIA CORRETTA LA FORMA DEGLI ARRAY CHE PASSO (fatto, corretto)
+#     # print(gradients_t.shape)
+#     # print(agentsPosition.shape)
+#     # #print(coverageIndices.shape)
+#     # print(targets.shape)
+    
+#     #todo magari passo delle posizioni sbagliate, lo verifico, così se è corretto, vuol dire che è 
+#     #todo sbagliato proprio il calcolo del gradiente 
+    
+#     #TODO STAMPARE POSIZIONE TARGET IN TUTTE LE ITERAZIONI (fatto, corretto) 
+#     # print(f"Posizioni dei target al tempo {t}:")
+#     # for target in targets:
+#     #     print(target[t])
+#     #TODO STAMPARE POSIZIONI AGENTI IN TUTTE LE ITERAZIONI (anche nel caso di target fermi) (fatto, corretto)
+#     # Stampa le posizioni degli agenti
+#     # print(f"Posizioni degli agenti al tempo {t}:")
+#     # for agent in agentsPosition:
+#     #     print(agent)
+    
+#     #TODO STAMPARE GRADIENTE
+    
+#     #TODO STAMPARE POSIZIONE DOPO L'INCREMENTO 
+    
+#     # Iterazione su ciascun agente per calcolare il gradiente
+#     for i in range(len(agentsPosition)):
+#         # Copia profonda delle posizioni iniziali degli agenti
+#         # newPositions = [list(pos) for pos in agentsPosition]
+#         newPositions = np.copy(agentsPosition)  # Usa np.copy per una copia profonda
         
-        # Calcolo del gradiente rispetto a x
-        newPositions[i][0] += h
-        newIndicesX = calculateCoverageIndices(targets, newPositions, t, r, mp)
-        newTotalIndexX = calculateTotalCoverageIndex(newIndicesX, t, 1)
-        gradientX = (newTotalIndexX - totalCoverageIndex_t) / h
+#         # Calcolo del gradiente rispetto a x
+#         newPositions[i][0] += h
+#         newIndicesX = calculateCoverageIndices(targets, newPositions, t, r, mp)
+#         newTotalIndexX = calculateTotalCoverageIndex(newIndicesX, lb)
+#         gradientX = (newTotalIndexX - totalCoverageIndex_t) / h
         
-        # Reset della posizione x
-        newPositions[i][0] -= h
+#         # Reset della posizione x
+#         newPositions[i][0] -= h
         
-        # Calcolo del gradiente rispetto a y
-        newPositions[i][1] += h
-        newIndicesY = calculateCoverageIndices(targets, newPositions, t, r, mp)
-        newTotalIndexY = calculateTotalCoverageIndex(newIndicesY, t, 1)
-        gradientY = (newTotalIndexY - totalCoverageIndex_t) / h
+#         # Calcolo del gradiente rispetto a y
+#         newPositions[i][1] += h
+#         newIndicesY = calculateCoverageIndices(targets, newPositions, t, r, mp)
+#         newTotalIndexY = calculateTotalCoverageIndex(newIndicesY, lb)
+#         gradientY = (newTotalIndexY - totalCoverageIndex_t) / h
         
-        # Reset della posizione y, anche se non necessario perchè non uso più il dato, ma messo per chiarezza codice
-        newPositions[i][1] -= h
+#         # Reset della posizione y, anche se non necessario perchè non uso più il dato, ma messo per chiarezza codice
+#         newPositions[i][1] -= h
         
-        # Aggiungi il gradiente dell'agente corrente alla lista dei gradienti
-        # gradients_t.append((gradientX, gradientY))
-        # Assegna i gradienti calcolati al vettore dei gradienti
-        gradients_t[i] = [gradientX, gradientY]
+#         # Aggiungi il gradiente dell'agente corrente alla lista dei gradienti
+#         # gradients_t.append((gradientX, gradientY))
+#         # Assegna i gradienti calcolati al vettore dei gradienti
+#         gradients_t[i] = [gradientX, gradientY]
         
-    gradients_t = perturbGradientIfCloseToZero(gradients_t)
+        
+#     # # Debug: Stampa i gradienti calcolati
+#     # print(f"Gradients at time {t}:\n{gradients_t}\n")
+    
+#     #gradients_t = perturbGradientIfCloseToZero(gradients_t)
+#     #print(f"Perturbed gradients at time {t}:\n{gradients_t}\n")
+    
+#     return gradients_t
+
+
+#----------------------------------------------------------------------------------------
+
+# CALCOLO GRADIENTE CON PYTORCH
+def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb, h):
+    agentsPosition_torch = torch.tensor(agentsPosition, requires_grad=True, dtype=torch.float32)
+    
+    coverageIndices = calculateCoverageIndices(targets, agentsPosition_torch, t, r, mp)
+    totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices, lb)
+    
+    # Assicuriamoci che totalCoverageIndex_t richieda gradienti
+    totalCoverageIndex_t = totalCoverageIndex_t.requires_grad_(True)
+    
+    totalCoverageIndex_t.backward()
+    
+    # Verifica che i gradienti siano calcolati
+    if agentsPosition_torch.grad is None:
+        raise RuntimeError("I gradienti non sono stati calcolati correttamente.")
+    
+    #gradients_t = agentsPosition_torch.grad.numpy()
+    gradients_t = agentsPosition_torch.grad.detach().numpy()
+    
+    #print(f"Gradients at time {t}:\n{gradients_t}\n")
+    #print(f"Gradients shape: {gradients_t.shape}")
     
     return gradients_t

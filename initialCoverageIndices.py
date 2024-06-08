@@ -60,12 +60,12 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
     # Itera su tutti i target
     for trajectory in targets:
         # [1] perchè prendo solo le misure, non lo stato vero
-        measurement0 = trajectory[1]
+        #measurement0 = trajectory[1]
         # il primo 0 indica il tempo in secondi, il secondo numero indica la x (0) o la y (1)
         # LA PRIMA COLONNA, QUEI DUE 0, INDICA CHE PRENDO LA PRIMA MISURA, OVVERO QUELLA AL TEMPO 0
         # INFATTI SE METTESSI : INVECE DI 0, LE PRENDEREI TUTTE
-        qx0 = measurement0[0, 0]  # Coordinate x del target al tempo t=0
-        qy0 = measurement0[0, 1]  # Coordinate y del target al tempo t=0
+        qx0 = trajectory[0, 0]  # Coordinate x del target al tempo t=0
+        qy0 = trajectory[0, 1]  # Coordinate y del target al tempo t=0
         
         # Inizializza l'indice di copertura per il target corrente
         E_j_0 = 0
@@ -77,7 +77,7 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
             
             # Calcola l'indice di copertura per l'agente corrente e il target corrente
             if l_ij_0 <= (r**2):
-                E_ij_0 = (mp / (r**4)) * (l_ij_0 - (r**2))**2
+                E_ij_0 = (mp / (r**4)) * ((l_ij_0 - (r**2))**2)
             else:
                 E_ij_0 = 0
             
@@ -94,7 +94,7 @@ def calculateInitialCoverageIndices(targets: list, initialAgents: list, r, mp):
 
 # funzione sigmoidale
 def sigmoid(x, lb):
-    return (np.tanh(x - lb) + 1) / 2
+    return ((np.tanh(x - lb) + 1) / 2)
 
 
 # calcolo dell'indice di copertura totale E(0), al tempo 0 quindi

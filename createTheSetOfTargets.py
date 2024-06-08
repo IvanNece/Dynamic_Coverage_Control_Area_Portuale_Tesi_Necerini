@@ -71,11 +71,22 @@ def buildTheSet(numTrajectories: int, inputDataset: list, duration: int):
 
 #--------------------------------------------------------------------------------------------------------
 
-def extractInitialTargetPositions(selectedTrajectories: list):
-    initialTargetPositions = []
-    for _, measurement in selectedTrajectories:
-        initialTargetPositions.append(measurement[0])  # Solo la misura al tempo t=0
-    return np.array(initialTargetPositions)
+def extractInitialTargetPositions(selectedTrajectories: list, numTargets):
+    # Creare un array NumPy dalle traiettorie selezionate
+    selectedTrajectoriesArray = np.array(selectedTrajectories)
+
+    # Inizializzare l'array per le posizioni iniziali
+    initialTargetPositions = np.zeros((numTargets, 1, 2))
+
+    # Estrarre le posizioni al tempo 0 per tutti i target
+    initialTargetPositions[:, 0, :] = selectedTrajectoriesArray[:, 0, :]
+
+    return initialTargetPositions
+    
+    
+    # for measurement in selectedTrajectories:
+    #     initialTargetPositions.append(measurement[0])  # Solo la misura al tempo t=0
+    # return np.array(initialTargetPositions)
 
 #--------------------------------------------------------------------------------------------------------
 
@@ -85,7 +96,7 @@ def printDataset(inputDatasetToPrint: list):
         
         realState = trajectory[0]
         measurement = trajectory[1]
-        print(f"Stato vero della traiettoria:\n {realState}")
+        #print(f"Stato vero della traiettoria:\n {realState}")
         print(f"\nMisure della traiettoria:\n {measurement}")
         print()
 

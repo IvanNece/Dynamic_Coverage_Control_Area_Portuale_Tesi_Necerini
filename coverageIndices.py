@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 
 #--------------------------------------------------------------------------------------------------------
 
@@ -25,9 +26,14 @@ def calculateCoverageIndices(targets: list, agentsPosition: list, t, r, mp):
     
     
     # Itera su tutti i target con un indice j esplicito
-    for j, trajectory in enumerate(targets):
-        # [1] perchè prendo solo le misure, non lo stato vero
-        measurement = trajectory[1]
+    # for j, trajectory in enumerate(targets):
+    for measurement in targets:
+        #measurement = np.array(measurement)
+        # # [1] perchè prendo solo le misure, non lo stato vero
+        # # TODO CONTROLLARE
+        # measurement = trajectory[1]
+        
+        #print(np.array(measurement).shape)
         
         # # Aggiungi un controllo per assicurarti che t sia un indice valido
         # if t >= len(measurement):
@@ -35,30 +41,33 @@ def calculateCoverageIndices(targets: list, agentsPosition: list, t, r, mp):
         #     continue  # Salta questa traiettoria se t è fuori dai limiti
         
         # t indica l'istante di tempo, il secondo numero indica la x (0) o la y (1)
-        qx = measurement[t, 0]  # Coordinate x del target al tempo t
-        qy = measurement[t, 1]  # Coordinate y del target al tempo t
+        qx = torch.tensor(measurement[t, 0], dtype=torch.float32, requires_grad=True)
+        qy = torch.tensor(measurement[t, 1], dtype=torch.float32, requires_grad=True)
         
         # Inizializza l'indice di copertura per il target corrente
-        E_j_t = 0
+        E_j_t = torch.tensor(0.0, dtype=torch.float32)
         
         # Calcola l'indice di copertura per il target corrente rispetto a tutti gli agenti
         # Utilizza un indice i esplicito per gli agenti
-        for i, (agent_x, agent_y) in enumerate(agentsPosition):
+        # for i, (agent_x, agent_y) in enumerate(agentsPosition):
+        for agent_pos in agentsPosition:
+            agent_x, agent_y = agent_pos[0], agent_pos[1]
+            
             # Calcola la distanza tra l'agente corrente e il target corrente
             l_ij_t = (agent_x - qx)**2 + (agent_y - qy)**2
             
             # Calcola l'indice di copertura per l'agente corrente e il target corrente
             if l_ij_t <= (r**2):
-                E_ij_t = (mp / (r**4)) * (l_ij_t - (r**2))**2
+                E_ij_t = (mp / (r**4)) * ((l_ij_t - (r**2))**2)
             else:
-                E_ij_t = 0
+                E_ij_t = torch.tensor(0.0, dtype=torch.float32)
             
             # Aggiungi l'indice di copertura parziale all'indice di copertura totale per il target
-            E_j_t += E_ij_t
+            E_j_t = E_j_t + E_ij_t
         
         # Aggiungi l'indice di copertura totale per il target corrente alla lista degli indici di copertura
         coverageIndices.append(E_j_t)
-    
+        
     # avrà dunque un vettore composto da 10 elementi (= nr targets)
     return coverageIndices
 
@@ -67,15 +76,26 @@ def calculateCoverageIndices(targets: list, agentsPosition: list, t, r, mp):
 # funzione sigmoidale
 def sigmoid(x, lb):
     #TODO controllare come passo parametro lb
-    return (np.tanh((x - lb)) + 1) / 2
+    # Converti lb in tensor
+    lb_tensor = torch.tensor(lb, dtype=torch.float32) 
+    return ((torch.tanh(x - lb_tensor) + 1) / 2)
+
 
 
 # calcolo dell'indice di copertura totale E(t), al tempo t generico
-def calculateTotalCoverageIndex(coverageIndices: list, t, lowerboundIndex):
-    totalCoverageIndex_t = 0
-    for i, index in enumerate(coverageIndices):
+def calculateTotalCoverageIndex(coverageIndices: list, lowerboundIndex):
+    totalCoverageIndex_t = torch.tensor(0.0, requires_grad=True)
+    for index in coverageIndices:
         indexWithSigmoid = sigmoid(index, lowerboundIndex)
-        totalCoverageIndex_t += indexWithSigmoid
+        totalCoverageIndex_t = totalCoverageIndex_t + indexWithSigmoid  
+        # Usa somma non in-place perchè pytorch non la vuole coi tensori con requires_grad=True
         #print(f"Indice di copertura parziale sigmoidale per l'elemento {i}: {indexWithSigmoid}")
         
     return totalCoverageIndex_t
+
+def calculateTotalCoverageIndexWithoutSigmoid(coverageIndices: list):
+    totalCoverageIndex_t_no_sigmoid = torch.tensor(0.0, requires_grad=True)
+    for i, index in enumerate(coverageIndices):
+        totalCoverageIndex_t_no_sigmoid = totalCoverageIndex_t_no_sigmoid + index
+        
+    return totalCoverageIndex_t_no_sigmoid
