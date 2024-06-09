@@ -23,7 +23,7 @@ def main():
     # DEFINIZIONE PARAMETRI IMPORTANTI
     
     numTargets = 10 # numero di traittorie selezionate, target (barche)
-    duration = 200 # secondi di durata delle traiettorie
+    duration = 150 # secondi di durata delle traiettorie
     numAgents = 4   # numero di agenti (droni)
     initialAreaSize = 200   # dimensione dell'area iniziale dove stanno a t=0 i target e gli agenti
     r = 150 # raggio di visione degli agenti (droni)
