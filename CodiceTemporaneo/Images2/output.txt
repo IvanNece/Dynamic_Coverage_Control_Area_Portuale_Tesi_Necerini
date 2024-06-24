@@ -1,0 +1,105 @@
+E' stato creato uno scenario con 10 traiettorie selezionate della durata di 150 secondi. I dettagli dello scenario sono stati salvati in 'outputSetTargets.txt'.
+
+
+
+Dimensione della lista della parte di 'measurement' delle 'targetTrajectories':
+(10, 150, 2)
+
+
+Posizioni iniziali dei target:
+[[[ 18.94367311  44.94047883]]
+
+ [[  0.7714419  101.1132615 ]]
+
+ [[184.29837649  32.67150565]]
+
+ [[166.66465739  28.9855487 ]]
+
+ [[150.80399107  92.20872645]]
+
+ [[120.89236622 175.55102573]]
+
+ [[184.29837649  32.67150565]]
+
+ [[ 18.94367311  44.94047883]]
+
+ [[150.80399107  92.20872645]]
+
+ [[140.11770564  98.61673954]]]
+(10, 1, 2)
+
+Posizioni iniziali degli agenti:
+Agente 1: x = 50.0, y = 50.0
+Agente 2: x = 50.0, y = 150.0
+Agente 3: x = 150.0, y = 50.0
+Agente 4: x = 150.0, y = 150.0
+(4, 2)
+
+
+INDICI DI COPERTURA INIZIALI E_j AL TEMPO t=0:
+E_0_(0): 1.1870808397054182
+E_1_(0): 1.2203611067148215
+E_2_(0): 1.020118859696476
+E_3_(0): 1.1914775847121377
+E_4_(0): 1.953067487395109
+E_5_(0): 1.504340033108583
+E_6_(0): 1.020118859696476
+E_7_(0): 1.1870808397054182
+E_8_(0): 1.953067487395109
+E_9_(0): 2.121977960989221
+
+
+
+INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0:
+E(0): 2.699592873195119
+
+VERSIONE 1 ALGORITMO
+INDICI DI COPERTURA FINALI E_j AL TEMPO t=200:
+E_0_(150): 0.10693448036909103
+E_1_(150): 0.4484676718711853
+E_2_(150): 3.611907482147217
+E_3_(150): 2.1077957153320312
+E_4_(150): 3.740018606185913
+E_5_(150): 0.12339049577713013
+E_6_(150): 3.611907482147217
+E_7_(150): 0.10693448036909103
+E_8_(150): 3.740018606185913
+E_9_(150): 3.5574302673339844
+
+INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE V1 t=finale:
+E(finale): 5.485107898712158
+
+Indice di copertura totale iniziale e finale V1 CLASSICA:
+
+tensor(2.6996, grad_fn=<AddBackward0>)
+tensor(5.4851, grad_fn=<AddBackward0>)
+
+Indice di copertura totale iniziale e finale V1 CON TARGET FERMI:
+
+tensor(2.6996, grad_fn=<AddBackward0>)
+tensor(5.3885, grad_fn=<AddBackward0>)
+
+Indice di copertura totale iniziale e finale V1 NO SIGMOIDE:
+
+tensor(14.3587, grad_fn=<AddBackward0>)
+tensor(21.1548, grad_fn=<AddBackward0>)
+
+Indice di copertura totale iniziale e finale V2 CLASSICA:
+
+tensor(2.6996, grad_fn=<AddBackward0>)
+tensor(5.4029, grad_fn=<AddBackward0>)
+
+Indice di copertura totale iniziale e finale V2 CON TARGET FERMI:
+
+tensor(2.6996, grad_fn=<AddBackward0>)
+tensor(5.4197, grad_fn=<AddBackward0>)
+
+Indice di copertura totale iniziale e finale V3 CLASSICA:
+
+tensor(2.6996, grad_fn=<AddBackward0>)
+tensor(5.4555, grad_fn=<AddBackward0>)
+
+Indice di copertura totale iniziale e finale V3 CON TARGET FERMI:
+
+tensor(2.6996, grad_fn=<AddBackward0>)
+tensor(5.2890, grad_fn=<AddBackward0>)

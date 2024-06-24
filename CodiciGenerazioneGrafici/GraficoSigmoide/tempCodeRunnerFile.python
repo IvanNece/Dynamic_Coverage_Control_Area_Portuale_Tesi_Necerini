@@ -1,0 +1,29 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+def sigmoid(E, E_star):
+    return (np.tanh(E - E_star) + 1) / 2
+
+# Definire i parametri
+E_star = 2.0  # Puoi cambiare questo valore a seconda delle tue necessità
+E_values = np.linspace(-10, 10, 400)  # Generare valori di E da -10 a 10
+
+# Calcolare i valori della funzione sigmoide
+sigma_values = sigmoid(E_values, E_star)
+
+# Tracciare il grafico
+fig, ax = plt.figure(figsize=(10, 6)), plt.gca()  # Modifica qui
+
+ax.plot(E_values, sigma_values, label=r'$\sigma(E) = \frac{\tanh(E - E^*) + 1}{2}$', color='b')
+ax.axvline(x=E_star, color='r', linestyle='--', label=r'$E^*$')
+ax.set_title('Grafico della Funzione Sigmoide')
+ax.set_xlabel(r'$E$')
+ax.set_ylabel(r'$\sigma(E)$')
+ax.legend()
+ax.grid(True)
+
+fig.savefig("C:\\Users\\Ivan\\Desktop\\TESI\\GraficoSigmoide\\graficoSig.png", format='png')  # Assicurati di includere l'estensione
+
+plt.show()
+

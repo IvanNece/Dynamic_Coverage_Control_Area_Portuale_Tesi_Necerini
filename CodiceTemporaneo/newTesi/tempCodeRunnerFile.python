@@ -1,0 +1,9 @@
+
+def main():
+    print("Hello, World!")
+    x=5
+    y=10
+    print(x+y)
+
+if __name__ == "__main__":
+    main()

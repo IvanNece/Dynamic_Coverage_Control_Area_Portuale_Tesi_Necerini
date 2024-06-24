@@ -1,0 +1,50 @@
+STEP 1) SCENARIO INIZIALE TARGETS:
+
+      FATTO
+      -Ho creato uno scenario iniziale di 10 traiettorie di targets, non variando però la durata di esse
+      che è 351 secondi, di conseguenza lo scenario rimane di 800x800 unità
+
+STEP 2) SCENARIO INIZIALE TARGETS RIDOTTO:
+
+      FATTO
+      -Devo creare uno scenario iniziale di 10 traiettorie di targets, riducendo la durata di esse
+      a 100 secondi, di conseguenza devo capire di quanto si riduce lo scenario
+
+      FATTO
+      -Devo plottare le 10 traiettorie all'istante t=0, per capire tutte le coordinate x e y in che
+      range sono comprese (0-200???)
+
+STEP 3) CREO UNO SCENARIO INIZIALE DI AGENTI E CALCOLO GLI INDICI DI COPERTURA A t=0 PER OGNI TARGET
+
+      FATTO
+      -Devo creare uno scenario iniziale di 4 droni (agenti), con posizione iniziale tale per cui ho
+      un coverage iniziale completo della mia area. Quindi all'istante t=0 devo calcolare i miei Ej
+      per ogni target e far si che siano sopra la soglia di copertura E*. 
+
+      FATTO
+      -Plotto lo scenario iniziale completo a t=0 sia di droni che di target, mettere simboli diversi
+      per droni e target ovviamente
+
+STEP 4) ADESSO CALCOLO L'EFFETTIVO INDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE t=0
+
+      FATTO
+      -Calcolo l'E complessivo all'istante 0, implica devo fare la funzione sigmoidale
+
+      FATTO
+      -Calcolo gradiente complessivo di E per ogni agente i al tempo t=0
+
+ALGORITMO
+
+      -5: 
+      V1 FATTO
+      -C'è rimasto un problema, che gli indici di copertura dall'istante t=0 all'istante di fine ovvero
+      t=duration non migliorando delle volte, anzi peggiorando. COME RISOLVO?
+      -RIMANE TODO IPAD PROBLEMA CHE Ej* NON SONO SOPRA 1 NE ALL'INZIO NE ALLA FINE
+
+      -6:
+      -V2 FATTO
+      -Rimane TODO IPAD
+
+      -7:
+      -V3 FATTO
+      -Rimane TODO IPAD
