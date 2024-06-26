@@ -156,7 +156,7 @@ def main():
     # # per verificare che siano tutti >= E*, scopo del progetto
     # # TODO: controllare che siano tutti >= E*
     finalCoverageIndicesV1 = calculateCoverageIndices(targetTrajectories, agentTrajectoriesV1[duration-1], duration-1, r, mp)
-    print("\nVERSIONE 1 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=200:")
+    print("\nVERSIONE 1 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=150:")
     for i, coverage_index in enumerate(finalCoverageIndicesV1):
         print(f"E_{i}_({duration}): {coverage_index}")
     
@@ -269,6 +269,13 @@ def main():
         totalCoverageIndex_tV2 = calculateTotalCoverageIndex(coverageIndices_tV2, lowerboundIndex)
         totalCoverageIndex_valuesV2.append(totalCoverageIndex_tV2)
 
+
+    finalCoverageIndicesV2 = calculateCoverageIndices(targetTrajectories, agentTrajectoriesV2[duration-1], duration-1, r, mp)
+    print("\nVERSIONE 2 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=150:")
+    for i, coverage_index in enumerate(finalCoverageIndicesV2):
+        print(f"E_{i}_({duration}): {coverage_index}")
+    
+
     print("\nIndice di copertura totale iniziale e finale V2 CLASSICA:\n")
     print(totalCoverageIndex_valuesV2[0])
     print(totalCoverageIndex_valuesV2[duration-1])
@@ -315,6 +322,12 @@ def main():
         totalCoverageIndex_tV3 = calculateTotalCoverageIndex(coverageIndices_tV3, lowerboundIndex)
         totalCoverageIndex_valuesV3.append(totalCoverageIndex_tV3)
 
+
+    finalCoverageIndicesV3 = calculateCoverageIndices(targetTrajectories, agentTrajectoriesV3[duration-1], duration-1, r, mp)
+    print("\nVERSIONE 3 ALGORITMO \nINDICI DI COPERTURA FINALI E_j AL TEMPO t=150:")
+    for i, coverage_index in enumerate(finalCoverageIndicesV3):
+        print(f"E_{i}_({duration}): {coverage_index}")
+    
     print("\nIndice di copertura totale iniziale e finale V3 CLASSICA:\n")
     print(totalCoverageIndex_valuesV3[0])
     print(totalCoverageIndex_valuesV3[duration-1])
