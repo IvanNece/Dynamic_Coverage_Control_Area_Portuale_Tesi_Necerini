@@ -31,7 +31,7 @@ def plotTrajectoriesWithAgentStartPoints(dataset, agentPositions, plotDir=None):
     
     plt.xlabel('Coordinate x')
     plt.ylabel('Coordinate y')
-    plt.title('Traiettorie delle barche (Targets) e Posizioni iniziali degli agenti')
+    plt.title('Traiettorie dei target e posizioni iniziali degli agenti')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.grid(True)
     
@@ -80,7 +80,7 @@ def plotAll(targetTrajectories, agentTrajectories, plotDir=None):
     # Parte finale
     plt.xlabel('Coordinate x')
     plt.ylabel('Coordinate y')
-    plt.title('Traiettorie delle barche (Targets) e degli agenti (Droni)')
+    plt.title('Traiettorie dei targets e degli agenti')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.grid(True)
     

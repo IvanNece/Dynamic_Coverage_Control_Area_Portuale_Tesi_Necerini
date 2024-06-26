@@ -218,45 +218,45 @@ def main():
     
     #-----------------------------------------------------------------------------------------------------
     
-    # #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
-    # #V1, CON TARGET FERMI!!!
+    # # #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
+    # # #V1, CON TARGET FERMI!!!
     
-    #print(initialTargetPositions)
-    tempTargetPositions = np.tile(initialTargetPositions, (1, duration, 1))
-    #print(tempTargetPositions.shape)
-    #sarà dunque correttamente un numTargets x duration x 2
-    #print(tempTargetPositions[9])
+    # #print(initialTargetPositions)
+    # tempTargetPositions = np.tile(initialTargetPositions, (1, duration, 1))
+    # #print(tempTargetPositions.shape)
+    # #sarà dunque correttamente un numTargets x duration x 2
+    # #print(tempTargetPositions[9])
     
-    totalCoverageIndex_values_stoppedTargets = []
-    for t in range(duration):
-        coverageIndices_t_stop = calculateCoverageIndices(tempTargetPositions, agentTrajectoriesV1[t], t, r, mp)
-        totalCoverageIndex_t_stop = calculateTotalCoverageIndex(coverageIndices_t_stop, lowerboundIndex)
-        totalCoverageIndex_values_stoppedTargets.append(totalCoverageIndex_t_stop)
+    # totalCoverageIndex_values_stoppedTargets = []
+    # for t in range(duration):
+    #     coverageIndices_t_stop = calculateCoverageIndices(tempTargetPositions, agentTrajectoriesV1[t], t, r, mp)
+    #     totalCoverageIndex_t_stop = calculateTotalCoverageIndex(coverageIndices_t_stop, lowerboundIndex)
+    #     totalCoverageIndex_values_stoppedTargets.append(totalCoverageIndex_t_stop)
         
-    print("\nIndice di copertura totale iniziale e finale V1 CON TARGET FERMI:\n")
-    print(totalCoverageIndex_values_stoppedTargets[0])
-    print(totalCoverageIndex_values_stoppedTargets[duration-1])
+    # print("\nIndice di copertura totale iniziale e finale V1 CON TARGET FERMI:\n")
+    # print(totalCoverageIndex_values_stoppedTargets[0])
+    # print(totalCoverageIndex_values_stoppedTargets[duration-1])
 
-    # # Plotting del totalCoverageIndex nel tempo
-    # # Chiamata alla funzione per fare il grafico
-    plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargets, plotDir="V1_totalIndexWithSTOPPEDtarget.png")
+    # # # Plotting del totalCoverageIndex nel tempo
+    # # # Chiamata alla funzione per fare il grafico
+    # plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargets, plotDir="V1_totalIndexWithSTOPPEDtarget.png")
     
-    #-----------------------------------------------------------------------------------------------------
-    #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
-    #V1 SENZA SIGMOIDE!!!
-    totalCoverageIndex_values_noSigmoid = []
-    for t in range(duration):
-        coverageIndices_t_noSigmoid = calculateCoverageIndices(targetTrajectories, agentTrajectoriesV1[t], t, r, mp)
-        totalCoverageIndex_t_noSigmoid = calculateTotalCoverageIndexWithoutSigmoid(coverageIndices_t_noSigmoid)
-        totalCoverageIndex_values_noSigmoid.append(totalCoverageIndex_t_noSigmoid)
+    # #-----------------------------------------------------------------------------------------------------
+    # #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
+    # #V1 SENZA SIGMOIDE!!!
+    # totalCoverageIndex_values_noSigmoid = []
+    # for t in range(duration):
+    #     coverageIndices_t_noSigmoid = calculateCoverageIndices(targetTrajectories, agentTrajectoriesV1[t], t, r, mp)
+    #     totalCoverageIndex_t_noSigmoid = calculateTotalCoverageIndexWithoutSigmoid(coverageIndices_t_noSigmoid)
+    #     totalCoverageIndex_values_noSigmoid.append(totalCoverageIndex_t_noSigmoid)
         
-    print("\nIndice di copertura totale iniziale e finale V1 NO SIGMOIDE:\n")
-    print(totalCoverageIndex_values_noSigmoid[0])
-    print(totalCoverageIndex_values_noSigmoid[duration-1])    
+    # print("\nIndice di copertura totale iniziale e finale V1 NO SIGMOIDE:\n")
+    # print(totalCoverageIndex_values_noSigmoid[0])
+    # print(totalCoverageIndex_values_noSigmoid[duration-1])    
     
-    plotTotalCoverageIndex(totalCoverageIndex_values_noSigmoid, plotDir="V1_totalCoverageIndexOverTimeNoSigmoid.png")
+    # plotTotalCoverageIndex(totalCoverageIndex_values_noSigmoid, plotDir="V1_totalCoverageIndexOverTimeNoSigmoid.png")
     
-    #-----------------------------------------------------------------------------------------------------
+    # #-----------------------------------------------------------------------------------------------------
 
     
 #------------------------------------------------------------------------------------------
@@ -280,28 +280,28 @@ def main():
     plotTotalCoverageIndex(totalCoverageIndex_valuesV2, plotDir="V2_totalCoverageIndexOverTime.png")
 
 
-# #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
-    # #V2, CON TARGET FERMI!!!
+# # #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
+#     # #V2, CON TARGET FERMI!!!
     
-    #print(initialTargetPositions)
-    tempTargetPositions = np.tile(initialTargetPositions, (1, duration, 1))
-    #print(tempTargetPositions.shape)
-    #sarà dunque correttamente un numTargets x duration x 2
-    #print(tempTargetPositions[9])
+#     #print(initialTargetPositions)
+#     tempTargetPositions = np.tile(initialTargetPositions, (1, duration, 1))
+#     #print(tempTargetPositions.shape)
+#     #sarà dunque correttamente un numTargets x duration x 2
+#     #print(tempTargetPositions[9])
     
-    totalCoverageIndex_values_stoppedTargetsV2 = []
-    for t in range(duration):
-        coverageIndices_t_stopV2 = calculateCoverageIndices(tempTargetPositions, agentTrajectoriesV2[t], t, r, mp)
-        totalCoverageIndex_t_stopV2 = calculateTotalCoverageIndex(coverageIndices_t_stopV2, lowerboundIndex)
-        totalCoverageIndex_values_stoppedTargetsV2.append(totalCoverageIndex_t_stopV2)
+#     totalCoverageIndex_values_stoppedTargetsV2 = []
+#     for t in range(duration):
+#         coverageIndices_t_stopV2 = calculateCoverageIndices(tempTargetPositions, agentTrajectoriesV2[t], t, r, mp)
+#         totalCoverageIndex_t_stopV2 = calculateTotalCoverageIndex(coverageIndices_t_stopV2, lowerboundIndex)
+#         totalCoverageIndex_values_stoppedTargetsV2.append(totalCoverageIndex_t_stopV2)
         
-    print("\nIndice di copertura totale iniziale e finale V2 CON TARGET FERMI:\n")
-    print(totalCoverageIndex_values_stoppedTargetsV2[0])
-    print(totalCoverageIndex_values_stoppedTargetsV2[duration-1])
+#     print("\nIndice di copertura totale iniziale e finale V2 CON TARGET FERMI:\n")
+#     print(totalCoverageIndex_values_stoppedTargetsV2[0])
+#     print(totalCoverageIndex_values_stoppedTargetsV2[duration-1])
 
-    # # Plotting del totalCoverageIndex nel tempo
-    # # Chiamata alla funzione per fare il grafico
-    plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargetsV2, plotDir="V2_totalIndexWithSTOPPEDtarget.png")
+#     # # Plotting del totalCoverageIndex nel tempo
+#     # # Chiamata alla funzione per fare il grafico
+#     plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargetsV2, plotDir="V2_totalIndexWithSTOPPEDtarget.png")
 
 #------------------------------------------------------------------------------------------
 
@@ -326,28 +326,28 @@ def main():
     plotTotalCoverageIndex(totalCoverageIndex_valuesV3, plotDir="V3_totalCoverageIndexOverTime.png")
 
 
-# #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
-    # #V3, CON TARGET FERMI!!!
+# # #TEST GRAFICO INDICE DI COPERTURA TOTALE--------------------------------------------------------------
+#     # #V3, CON TARGET FERMI!!!
     
-    #print(initialTargetPositions)
-    tempTargetPositions = np.tile(initialTargetPositions, (1, duration, 1))
-    #print(tempTargetPositions.shape)
-    #sarà dunque correttamente un numTargets x duration x 2
-    #print(tempTargetPositions[9])
+#     #print(initialTargetPositions)
+#     tempTargetPositions = np.tile(initialTargetPositions, (1, duration, 1))
+#     #print(tempTargetPositions.shape)
+#     #sarà dunque correttamente un numTargets x duration x 2
+#     #print(tempTargetPositions[9])
     
-    totalCoverageIndex_values_stoppedTargetsV3 = []
-    for t in range(duration):
-        coverageIndices_t_stopV3 = calculateCoverageIndices(tempTargetPositions, agentTrajectoriesV3[t], t, r, mp)
-        totalCoverageIndex_t_stopV3 = calculateTotalCoverageIndex(coverageIndices_t_stopV3, lowerboundIndex)
-        totalCoverageIndex_values_stoppedTargetsV3.append(totalCoverageIndex_t_stopV3)
+#     totalCoverageIndex_values_stoppedTargetsV3 = []
+#     for t in range(duration):
+#         coverageIndices_t_stopV3 = calculateCoverageIndices(tempTargetPositions, agentTrajectoriesV3[t], t, r, mp)
+#         totalCoverageIndex_t_stopV3 = calculateTotalCoverageIndex(coverageIndices_t_stopV3, lowerboundIndex)
+#         totalCoverageIndex_values_stoppedTargetsV3.append(totalCoverageIndex_t_stopV3)
         
-    print("\nIndice di copertura totale iniziale e finale V3 CON TARGET FERMI:\n")
-    print(totalCoverageIndex_values_stoppedTargetsV3[0])
-    print(totalCoverageIndex_values_stoppedTargetsV3[duration-1])
+#     print("\nIndice di copertura totale iniziale e finale V3 CON TARGET FERMI:\n")
+#     print(totalCoverageIndex_values_stoppedTargetsV3[0])
+#     print(totalCoverageIndex_values_stoppedTargetsV3[duration-1])
 
-    # # Plotting del totalCoverageIndex nel tempo
-    # # Chiamata alla funzione per fare il grafico
-    plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargetsV3, plotDir="V3_totalIndexWithSTOPPEDtarget.png")
+#     # # Plotting del totalCoverageIndex nel tempo
+#     # # Chiamata alla funzione per fare il grafico
+#     plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargetsV3, plotDir="V3_totalIndexWithSTOPPEDtarget.png")
 
 
 #------------------------------------------------------------------------------------------
