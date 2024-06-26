@@ -37,7 +37,7 @@ def coverageAlgorithmV1(targetsTrajectories: list, agentsInitialPosition: list, 
         # di ogni agente i al tempo t
         #TODO CONTROLLA QUA, MAGARI PASSO IL NUOVO AGENTSPOSITIONS[T]
         gradients_t = gradientOfCoverageIndex(targetsTrajectories, agentsTrajectories[t], t, r, mp, lb, h)
-        # print(gradients_t.shape)
+        # print(gradients_t.shape)  
 
         
         # Stampa i gradienti per monitorare i cambiamenti
@@ -76,5 +76,9 @@ def coverageAlgorithmV1(targetsTrajectories: list, agentsInitialPosition: list, 
     # Con 4 agenti e una simulazione di 100 secondi, alla fine della simulazione, agentsTrajectories
     # sarà una matrice di dimensione 100 x 4 x 2. Ogni elemento agentsTrajectories[t][i] sarà un array
     # di due elementi [x, y], rappresentando la posizione dell'agente i al secondo t.
+    
+    
+    
+    
 
     

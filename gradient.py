@@ -183,3 +183,21 @@ def gradientOfCoverageIndex(targets, agentsPosition, t, r, mp, lb, h):
     #print(f"Gradients shape: {gradients_t.shape}")
     
     return gradients_t
+
+    """
+    agentsPosition_torch = torch.tensor(agentsPosition, requires_grad=True, dtype=torch.float32): Converte l'array agentsPosition in un tensore PyTorch e abilita il calcolo automatico dei gradienti impostando requires_grad=True. Questo consente di tracciare tutte le operazioni eseguite su agentsPosition_torch.
+
+coverageIndices = calculateCoverageIndices(targets, agentsPosition_torch, t, r, mp): Calcola gli indici di copertura utilizzando le posizioni degli agenti rappresentate come tensori PyTorch. La funzione calculateCoverageIndices non è definita qui, ma si presume che utilizzi PyTorch per i calcoli.
+
+totalCoverageIndex_t = calculateTotalCoverageIndex(coverageIndices, lb): Calcola l'indice di copertura totale a partire dagli indici di copertura individuali. Anche questa funzione si presume utilizzi PyTorch.
+
+totalCoverageIndex_t = totalCoverageIndex_t.requires_grad_(True): Assicura che totalCoverageIndex_t richieda gradienti, il che è necessario per la successiva operazione di backpropagation.
+
+totalCoverageIndex_t.backward(): Esegue la backpropagation per calcolare i gradienti dell'indice di copertura totale rispetto alle posizioni degli agenti. PyTorch costruisce dinamicamente il grafo computazionale e, con questa chiamata, calcola i gradienti rispetto a tutte le variabili che hanno contribuito a totalCoverageIndex_t.
+
+if agentsPosition_torch.grad is None: Verifica che i gradienti siano stati effettivamente calcolati. Se agentsPosition_torch.grad è None, significa che qualcosa è andato storto durante la backpropagation.
+
+gradients_t = agentsPosition_torch.grad.detach().numpy(): Estrae i gradienti calcolati, li disconnette dal grafo computazionale di PyTorch utilizzando detach() e li converte in un array NumPy per un'ulteriore elaborazione al di fuori del contesto di PyTorch. Questo è necessario perché i gradienti inizialmente sono ancora legati al grafo computazionale e sono rappresentati come tensori PyTorch.
+
+Le righe commentate con # sono utilizzate per il debug e mostrano i gradienti calcolati e la loro forma, ma sono state disattivate per l'esecuzione normale.
+    """
