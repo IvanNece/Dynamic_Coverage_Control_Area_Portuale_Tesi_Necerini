@@ -1,5 +1,6 @@
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 
 #--------------------------------------------------------------------------------------------------------
 
@@ -90,4 +91,55 @@ def plotAll(targetTrajectories, agentTrajectories, plotDir=None):
         plt.savefig(os.path.join(imageDir, plotDir), bbox_inches='tight')
     else:
         plt.show()
+        
+        
+#--------------------------------------------------------------------------------------------------------
+
+
+def plotFinalSetWithRadius(targetTrajectories, agentTrajectories, duration, r, plotDir=None):
+    # estraggo posizioni finali degli agenti
+    finalAgentPositions = agentTrajectories[duration-1]
+    # shape (4,2)
+    #print(finalAgentPositions.shape)
+
+    # estraggo posizioni finali dei target
+    finalTargetPositions = targetTrajectories[:, duration-1, :]
+    # shape (10,2)
+    #print(finalTargetPositions.shape)
+    
+    # Colori differenti per ciascun agente
+    colors = ['red', 'blue', 'green', 'orange']
+
+    fig, ax = plt.subplots(figsize=(10, 10))
+    # Plot posizioni finali dei target
+    ax.scatter(finalTargetPositions[:, 0], finalTargetPositions[:, 1], marker='s', label='Targets')
+
+    # Plot posizioni finali degli agenti con cerchi di copertura
+    for i, (x, y) in enumerate(finalAgentPositions):
+        ax.scatter(x, y, marker='x', color=colors[i], label=f'Agente {i+1}')
+        circle = plt.Circle((x, y), r, edgecolor=colors[i], facecolor=colors[i], fill=True, alpha=0.1, linestyle='--', linewidth=2)
+        ax.add_artist(circle)
+        
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_title('Posizioni finali di target e agenti con aree di copertura, ALGORITMO V3')
+    ax.legend()
+    plt.grid(True)
+    plt.axis('equal')
+    
+    # Set limits to ensure all circles are fully visible
+    padding = r + 50  # aggiungi un padding per assicurarti che i cerchi siano visibili
+    all_positions = np.vstack((finalTargetPositions, finalAgentPositions))
+    x_min, y_min = np.min(all_positions, axis=0) - padding
+    x_max, y_max = np.max(all_positions, axis=0) + padding
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(0, y_max)  # Imposta y_min a 0 per evitare valori negativi
+    
+    if plotDir:
+        imageDir = os.path.join(os.getcwd(), "Images")
+        os.makedirs(imageDir, exist_ok=True)
+        plt.savefig(os.path.join(imageDir, plotDir), bbox_inches='tight')
+    else:
+        plt.show()
+    
 

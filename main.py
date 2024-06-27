@@ -7,7 +7,7 @@ import numpy as np
 from createTheSetOfTargets import printDataset, buildTheSet, plotTrajectories, plotStartingPointOfTrajectories, extractInitialTargetPositions
 from createTheSetOfAgents import generateInitialAgentPositions, plotInitialAgentPositions
 from initialCoverageIndices import calculateE_00_0, calculateInitialCoverageIndices, calculateInitialTotalCoverageIndex
-from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll
+from plotMergeFunctions import plotTrajectoriesWithAgentStartPoints, plotAll, plotFinalSetWithRadius
 from gradient import gradientOfInitialCoverageIndex
 from coverageIndices import calculateCoverageIndices, calculateTotalCoverageIndex, calculateTotalCoverageIndexWithoutSigmoid
 from testTotalCoverageIndex import plotTotalCoverageIndex, plotTotalCoverageIndexStopped, calculateCoverageIndicesStopped
@@ -163,7 +163,7 @@ def main():
     # CALCOLO INDICE DI COPERTURA TOTALE ALL'ISTANTE FINALE, PER VEDERE SE MIGLIORA RISPETTO A t=0
     totalCoverageIndexFinal = calculateTotalCoverageIndex(finalCoverageIndicesV1, lowerboundIndex)
     print(f"\nINDICE DI COPERTURA COMPLESSIVO ALL'ISTANTE V1 t=finale: \nE(finale): {totalCoverageIndexFinal}")
-        
+    
         
     #------------------------------------------------------------------------------------------
     # 6) ALGORITMO V2
@@ -362,6 +362,11 @@ def main():
 #     # # Chiamata alla funzione per fare il grafico
 #     plotTotalCoverageIndexStopped(totalCoverageIndex_values_stoppedTargetsV3, plotDir="V3_totalIndexWithSTOPPEDtarget.png")
 
+
+#------------------------------------------------------------------------------------------
+
+    #GRAFICO FINALE
+    plotFinalSetWithRadius(targetTrajectories, agentTrajectoriesV3, duration, r, plotDir="finalSetWithRadius.png")
 
 #------------------------------------------------------------------------------------------
 
