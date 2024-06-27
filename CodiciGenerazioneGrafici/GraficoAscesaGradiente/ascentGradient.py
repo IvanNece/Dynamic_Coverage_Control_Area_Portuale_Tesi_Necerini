@@ -39,6 +39,7 @@ for i, point in enumerate(points):
     plt.annotate(f'P{i}', (point[0], point[1]), textcoords="offset points", xytext=(0,10), ha='center')
 
 plt.title('Ascesa del gradiente su f(x,y)=−(x^2+y^2)+4')
+plt.title(r'Ascesa del gradiente su $f(x, y) = -(x^2 + y^2) + 4$')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.grid(True)

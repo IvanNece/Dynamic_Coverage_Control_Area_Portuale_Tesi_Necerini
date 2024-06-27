@@ -131,9 +131,10 @@ def plotFinalSetWithRadius(targetTrajectories, agentTrajectories, duration, r, p
     padding = r + 50  # aggiungi un padding per assicurarti che i cerchi siano visibili
     all_positions = np.vstack((finalTargetPositions, finalAgentPositions))
     x_min, y_min = np.min(all_positions, axis=0) - padding
-    x_max, y_max = np.max(all_positions, axis=0) + padding
+    x_max = 400  # Imposta il limite massimo dell'asse X a 400
+    y_max = np.max(all_positions[:, 1]) + padding
     ax.set_xlim(x_min, x_max)
-    ax.set_ylim(0, y_max)  # Imposta y_min a 0 per evitare valori negativi
+    ax.set_ylim(0, 400)  # Imposta y_min a 0 per evitare valori negativi
     
     if plotDir:
         imageDir = os.path.join(os.getcwd(), "Images")
