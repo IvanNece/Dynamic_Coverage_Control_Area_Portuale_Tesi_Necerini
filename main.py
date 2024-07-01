@@ -29,7 +29,7 @@ def main():
     r = 150 # raggio di visione degli agenti (droni)
     mp = 1   # peak sensing quality
     epsilon = 150  # passi di salita, decide la velocità degli agenti
-    lowerboundIndex = 2 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
+    lowerboundIndex = 1 # indice di copertura minimo accettabile, =E* nella funzione sigmoidale
     h = 1e-10   # h = sensibilità del calcolo del gradiente
     delta = 30   # distanza di allontanamento tra agenti
    
